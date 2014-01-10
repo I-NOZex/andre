@@ -1,0 +1,4 @@
+[22:30] 10 Janeiro:::::::::::::::::::::::::::::::::::::::
+Instalei o YUM, componente de gestao de utilizadores
+Talves venha a mudar o componente que usei, ainda sem certezas, apenas instalei este pois ja trabalhei muito com ele, mas talves seja desnecessariamente completo (por exemplo, amizades, mensagens privadas, subscriçoes, sao coisas que nao se vai dar uso, existe uma alternativa Yii User, talves venha a ficar essa, lgo se ve ;] )
+=========================================================
