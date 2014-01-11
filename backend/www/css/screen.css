@@ -36,9 +36,9 @@ h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
 h6 {font-size:1em;font-weight:bold;}
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {margin:0;}
 p {margin:0 0 1.5em;}
-.left {float:left !important;}
+.left {text-align: left; padding-left: 3px;}
 p .left {margin:1.5em 1.5em 1.5em 0;padding:0;}
-.right {float:right !important;}
+.right {text-align: right; padding-right: 3px;}
 p .right {margin:1.5em 0 1.5em 1.5em;padding:0;}
 a:focus, a:hover {color:#09f;}
 a {color:#06c;text-decoration:underline;}
@@ -58,11 +58,12 @@ ol {list-style-type:decimal;}
 dl {margin:0 0 1.5em 0;}
 dl dt {font-weight:bold;}
 dd {margin-left:1.5em;}
-table {margin-bottom:1.4em;width:100%;}
+.form-inline label {line-height:30px !important;}
+/*table {margin-bottom:1.4em;width:100%;}
 th {font-weight:bold;}
 thead th {background:#c3d9ff;}
 th, td, caption {padding:4px 10px 4px 5px;}
-tfoot {font-style:italic;}
+tfoot {font-style:italic;}*/
 caption {background:#eee;}
 .small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}
 .large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}
@@ -72,8 +73,8 @@ caption {background:#eee;}
 .highlight {background:#ff0;}
 .added {background:#060;color:#fff;}
 .removed {background:#900;color:#fff;}
-.first {margin-left:0;padding-left:0;}
-.last {margin-right:0;padding-right:0;}
+.first {margin-left:0!important;padding-left:0;}
+.last {margin-right:0!important;padding-right:0;}
 .top {margin-top:0;padding-top:0;}
 .bottom {margin-bottom:0;padding-bottom:0;}
 
@@ -87,10 +88,12 @@ caption {background:#eee;}
 .span-4 {width:150px;}
 .span-5 {width:190px;}
 .span-6 {width:230px;}
-.span-7 {width:270px;}
+/*.span-7 {width:270px;}*/
+.span-7 {width:calc(23%);}
 .span-8 {width:310px;}
 .span-9 {width:350px;}
-.span-10 {width:390px;}
+/*.span-10 {width:390px;}*/
+.span-10 {width:calc(33.333% - 20px);}
 .span-11 {width:430px;}
 .span-12 {width:470px;}
 .span-13 {width:510px;}
@@ -100,7 +103,8 @@ caption {background:#eee;}
 .span-17 {width:670px;}
 .span-18 {width:710px;}
 .span-19 {width:750px;}
-.span-20 {width:790px;}
+/*.span-20 {width:790px;}*/
+.span-20 {width:calc(77% - 30px);}
 .span-21 {width:830px;}
 .span-22 {width:870px;}
 .span-23 {width:910px;}
@@ -236,3 +240,29 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .clearfix:after, .container:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix, .container {display:block;}
 .clear {clear:both;}
+.no_margin{margin: 0!important;}
+.margin10{margin: 0 10px!important;}
+.no_padding{padding: 0!important;}
+.list-view .view{float: left;margin: 10px;width:calc(50% - 40px);}
+.loading_overlay {background-color:rgba(255, 255, 255, 0.8);height:100%;position:absolute;width:100%;z-index:9;}
+.list-view.list-view-loading{position:relative;}
+.pagination{display:inline-block;width:100%;}
+.nav-list > li > a.active, .nav-list > li > a.active:hover {background-color: #0088CC; color: #FFFFFF; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);}
+.nav .avatar {height: 30px;margin-right: 0;padding: 5px;width: 30px !important;}
+.title{display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;line-height:40px;color:#333;border:0;border-bottom:1px solid #e5e5e5}
+.ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;-ms-text-overflow:ellipsis;-moz-binding:url(ellipsis.xml#ellipsis);display:inline-block;max-width:274px;vertical-align:top;}
+.label a { color: #A9DDF2; }
+.label a:hover { color: #87CEEB; }
+.table td.text-right{ text-align: right; }
+.form-inline .help-block{margin-bottom: 0;}
+.items [class*="span4"]:nth-child(3n+1){ margin-left: 0; }
+.items [class*="span3"]:nth-child(4n+1){ margin-left: 0; }
+/*.items [class*="span6"]:nth-child(4n+1){ margin-left: 0; }*/
+.items [class*="span12"]:nth-child(1n){ margin-left: 0; }
+.items.table th, .items.table td{ vertical-align: middle; }
+#footer { margin-bottom: 20px;/*position: absolute; bottom: 20px; width: calc(100% - 40px);*/ }
+.text-blink{animation:blinkColor 3s infinite}
+@keyframes blinkColor{ 0%{color:#999} 50%{color:#f89406} 100%{color:#999} }
+@-webkit-keyframes blinkColor{ 0%{color:#999} 50%{color:#f89406} 100%{color:#999} }
+@media (min-width: 1200px) {.select2-container.span5 {width: 466px;}}
+@media (min-width: 768px) and (max-width: 979px) {.select2-container.span5 {width: 286px;}}

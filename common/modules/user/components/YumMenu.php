@@ -20,9 +20,9 @@ class YumMenu extends CMenu {
 		foreach($items as $item) {
 			echo CHtml::openTag('li', isset($item['itemOptions']) ? $item['itemOptions'] : array());
 			if(isset($item['url']))
-				echo CHtml::link($item['label'],$item['url'],isset($item['linkOptions']) ? $item['linkOptions'] : array());
+				echo CHtml::link(CHtml::decode($item['label']),$item['url'],isset($item['linkOptions']) ? $item['linkOptions'] : array());
 			else
-				echo CHtml::tag('span',isset($item['linkOptions']) ? $item['linkOptions'] : array(), $item['label']);
+				echo CHtml::tag('span',isset($item['linkOptions']) ? $item['linkOptions'] : array(), CHtml::decode($item['label']));
 			if(isset($item['items']) && count($item['items']))
 			{
 				echo "\n".
