@@ -14,7 +14,7 @@ Yii::setPathOfAlias('www', __DIR__ . '/../www');
 return CMap::mergeArray(
 	require(__DIR__ . '/../../common/config/main.php'),
 	array(
-		'name' => 'Clevertech Backend Boilerplate',
+		'name' => 'FunnyShirt',
 		// @see http://www.yiiframework.com/doc/api/1.1/CApplication#basePath-detail
 		'basePath' => 'backend',
 		// preload components required before running applications
