@@ -1,6 +1,6 @@
 <?php $this->widget('bootstrap.widgets.TbNavbar', array(
 	'type' => 'inverse', // null or 'inverse'
-	'brand' => 'LiveTuga <sup>Admin</sup>',
+	'brand' => CHtml::encode(Yii::app()->name).'<sup>Admin</sup>',
 	'brandUrl' => array('/site/index'),
 	'collapse' => true, // requires bootstrap-responsive.css
     'fluid' => true,
@@ -57,7 +57,7 @@
 			'items' => array(
                 '---',
                 array('label'=>Yii::app()->user->data()->getAvatar(true)),
-				array(/*'linkOptions'=>array('class'=>(YumMessage::model()->unread()->count()>0) ? 'text-blink' : ''),*/
+				array('linkOptions'=>array('class'=>(YumMessage::model()->unread()->count()>0) ? 'text-blink' : ''),
                 'label' => Yum::t('Welcome').' <b>'.Yii::app()->user->name.'</b>',
                 'url' => array('/site/login'), 'items' => array(
 					array('label' => Yum::t('Profile'), 'url' => '#'),

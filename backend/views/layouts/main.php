@@ -40,7 +40,7 @@
 	</div>
     <div id="footer">
     <hr />
-        Copyright &copy; <?php echo date('Y'); ?> <b>Livetuga</b>.<br/>
+        Copyright &copy; <?php echo date('Y'); ?> <b><?php echo CHtml::encode(Yii::app()->name);?></b>.<br/>
         Todos os direitos reservados.
     </div>
     <!-- footer -->

@@ -1,7 +1,7 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
 
 <div class="page-header">
-<h1>Bem Vindo á administração do <i style="color: #16A2EB"><?php echo CHtml::encode(Yii::app()->name); ?><sup>●</sup></i></h1>
+<h1>Bem Vindo á administração da <i style="color: #16A2EB"><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 </div>
 <?php //Yii::app()->user->setFlash('success', '<strong>Well done!</strong> You have successfully created your Yii application.');?>
 <?php //$this->widget('bootstrap.widgets.TbAlert'); ?>
