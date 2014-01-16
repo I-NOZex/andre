@@ -1,7 +1,3 @@
-<div class="container">
-<div class="span12">
-<div class="row">
-
 <?php
 $this->title = Yum::t('Manage users');
 
@@ -9,51 +5,41 @@ $this->breadcrumbs = array(
 		Yum::t('Users'),
 		Yum::t('Manage'));
 
-echo CHtml::link(Yum::t('Create new User'), array(
-			'//user/user/create'), array('class' => 'btn')); 
+echo Yum::renderFlash();
+
+echo '<p class="title">'.Yum::t('Manage users').'</p>';
 
 $columns = array(
-		array(
-			'class'=>'zii.widgets.grid.CButtonColumn',
-			'headerHtmlOptions' => array('class' => 'span1'),
-			),
 		array(
 			'name'=>'id',
 			'filter' => false,
 			'type'=>'raw',
-		'headerHtmlOptions' => array('class' => 'span1'),
 			'value'=>'CHtml::link($data->id,
 				array("//user/user/update","id"=>$data->id))',
 			),
 		array(
 			'name'=>'username',
 			'type'=>'raw',
-		'headerHtmlOptions' => array('class' => 'span1'),
 			'value'=>'CHtml::link(CHtml::encode($data->username),
 				array("//user/user/view","id"=>$data->id))',
 			),
 		);
 
-if(Yum::hasModule('profile') && isset($profile))
-foreach(Yum::module('profile')->gridColumns as $column)
 $columns[] = array(
-		'header' => Yum::t($column),
-		'filter' => CHtml::textField('YumProfile['.$column.']', $profile->$column),
-		'name' => 'profile.'.$column,
-		'headerHtmlOptions' => array('class' => 'span1'),
+		'header' => Yum::t(Yum::module('profile')->gridColumns[0]),
+		'filter' => CHtml::textField('YumProfile["email"]', $profile->email),
+		'name' => 'profile.'.Yum::module('profile')->gridColumns[0],
 		);
 
 $columns[] = array(
 		'name'=>'createtime',
 		'filter' => false,
 		'value'=>'date(UserModule::$dateFormat,$data->createtime)',
-		'headerHtmlOptions' => array('class' => 'span1'),
 		);
 $columns[] = array(
 		'name'=>'lastvisit',
 		'filter' => false,
 		'value'=>'date(UserModule::$dateFormat,$data->lastvisit)',
-		'headerHtmlOptions' => array('class' => 'span1'),
 		);
 $columns[] = array(
 		'name'=>'status',
@@ -63,36 +49,36 @@ $columns[] = array(
 			'-1' => Yum::t('Banned'),
 			'-2' => Yum::t('Deleted')),
 		'value'=>'YumUser::itemAlias("UserStatus",$data->status)',
-		'headerHtmlOptions' => array('class' => 'span1'),
 		);
 $columns[] = array(
 		'name'=>'superuser',
 		'filter' => array(0 => Yum::t('No'), 1 => Yum::t('Yes')),
 		'value'=>'YumUser::itemAlias("AdminStatus",$data->superuser)',
-		'headerHtmlOptions' => array('class' => 'span1'),
 		);
 
-if(Yum::hasModule('role'))
 $columns[] = array(
-		'header'=>Yum::t('Roles'),
-		'name'=>'filter_role',
+		'name'=>Yum::t('Roles'),
 		'type' => 'raw',
 		'visible' => Yum::hasModule('role'),
-		'filter' => CHtml::listData(YumRole::model()->findAll(), 'id', 'title'),
+		'filter' => false,
 		'value'=>'$data->getRoles()',
-		'headerHtmlOptions' => array('class' => 'span1'),
 		);
 
-$this->widget('zii.widgets.grid.CGridView',array(
+$columns[] = array('class'=>'bootstrap.widgets.TbButtonColumn','htmlOptions'=>array('width'=>'50'));
+
+$this->widget('bootstrap.widgets.TbGridView',array(
 			'dataProvider'=>$model->search(),
 			'filter' => $model,
 			'columns'=>$columns,
-			'htmlOptions' => array('class' => 'table table-striped table-condensed admin-user'),
+            'responsiveTable'=>true,
+            'type'=>'striped condensed',
 			)
 		); ?>
-
-
-
-</div>
-</div>
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'label' => Yum::t('Create new User'),
+        //'size'=>'small',
+        'icon'=>'icon-plus',
+        'url'=>array('//user/user/create')
+        ));  ?>
 </div>

@@ -3,8 +3,10 @@ $this->title = Yum::t('Users');
 $this->breadcrumbs=array(Yum::t("Users"));
 ?>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 			'dataProvider'=>$dataProvider,
+            'type'=>'striped',
+            'htmlOptions' => array('class'=>'no_padding'),
 			'columns'=>array(
 		array(
 			'name' => 'username',

@@ -1,13 +1,15 @@
-<?php if($profile && !$profile->isNewRecord && $profile->getProfileFields()) { ?>
-<table class="table_profile_fields">
-<?php foreach($profile->getProfileFields() as $field) { ?>
-	<tr>
-	<th class="label"> <?php echo Yum::t($field); ?> </th> 
-	<td> <?php echo $profile->$field; ?> </td>
-	</tr>
+<?php if($profile && !$profile->isNewRecord && $profile->getProfileFields()) {
+        $attr = array();
+        $data = array();
+        foreach($profile->getProfileFields() as $field) {
+            $attr[] = array('name' =>  Yum::t($field), 'label' => Yum::t($field));
+            $data[Yum::t($field)] = $profile->$field;
+        }
 
-<?php } ?>
-</table>
-<?php } ?>
-
+        $this->widget('bootstrap.widgets.TbDetailView', array(
+            'data'=>$data,
+            'attributes'=>$attr,
+            'htmlOptions'=>array('class'=>'table_profile_fields')
+            ));
+} ?>
 <div class="clear"></div>

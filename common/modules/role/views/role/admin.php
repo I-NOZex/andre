@@ -1,14 +1,15 @@
 <?php
-$this->title = Yum::t('Manage roles'); 
+$this->title = Yum::t('Manage roles');
 
 $this->breadcrumbs=array(
 	Yum::t('Roles')=>array('index'),
 	Yum::t('Manage'),
 );
 
+echo '<p class="title">'.Yum::t('Manage roles').'</p>';
 ?>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(
 		array(
@@ -20,7 +21,16 @@ $this->breadcrumbs=array(
 		'price',
 		'membership_priority',
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array('width'=>'50')
 		),
 	),
 )); ?>
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'label' => Yum::t('Create new role'),
+        //'size'=>'small',
+        'icon'=>'icon-plus',
+        'url'=>array('//role/role/create')
+        ));  ?>
+</div>

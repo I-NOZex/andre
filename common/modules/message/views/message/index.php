@@ -7,9 +7,9 @@ $this->breadcrumbs=array(
 
 echo Yum::renderFlash();
 
-echo '<h2>' . Yum::t('Messages') . '</h2>';
+echo '<p class="title">' . Yum::t('Messages') . '</p>';
 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
 			'id'=>'yum-message-grid',
 			'dataProvider' => $model->search(),
 			'columns'=>array(
@@ -31,7 +31,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'value' => '$data->getDate()',
 					),
 				array(
-					'class'=>'CButtonColumn',
+            	    'class'=>'bootstrap.widgets.TbButtonColumn',
+                    'htmlOptions'=>array('width'=>'32'),
 					'template' => '{view}{delete}',
 					),
 				),

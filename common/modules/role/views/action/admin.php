@@ -1,7 +1,3 @@
-<div class="container">
-<div class="span12">
-<div class="row">
-
 <?php
 $this->breadcrumbs=array(
 	Yum::t('Actions')=>array('index'),
@@ -9,15 +5,9 @@ $this->breadcrumbs=array(
 );
 
 ?>
-<h1> <?php echo Yum::t('Manage Actions'); ?></h1>
+<p class="title"><?php echo Yum::t('Manage Actions'); ?></p>
 
-<?php
-
-echo CHtml::link(
-		Yum::t('Create new Action'), array(
-			'//role/action/create'), array('class' => 'btn')); 
-
- $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'action-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -26,11 +16,8 @@ echo CHtml::link(
 		'comment',
 		'subject',
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array('width'=>'50')
 		),
 	),
-			'htmlOptions' => array('class' => 'table table-striped table-condensed admin-user'),
 )); ?>
-</div>
-</div>
-</div>

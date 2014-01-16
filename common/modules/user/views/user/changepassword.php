@@ -1,6 +1,5 @@
-<?php 
+<?php
 $this->pageTitle = Yum::t("change password");
-echo '<h2>'. Yum::t('change password') .'</h2>';
 
 $this->breadcrumbs = array(
 	Yum::t("Change password"));
@@ -10,24 +9,31 @@ if(isset($expired) && $expired)
 ?>
 
 <div class="form">
-<?php echo CHtml::beginForm(); ?>
-	<?php echo Yum::requiredFieldNote(); ?>
+<fieldset>
+    <legend><?php echo Yum::t('Change password'); ?></legend>
+<?php echo CHtml::beginForm('','POST',array('class'=>'form-horizontal')); ?>
+	<div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
 	<?php echo CHtml::errorSummary($form); ?>
 
 	<?php if(!Yii::app()->user->isGuest) {
-		echo '<div class="row">';
-		echo CHtml::activeLabelEx($form,'currentPassword'); 
+		echo '<div class="control-group">';
+		echo CHtml::activeLabelEx($form,'currentPassword',array('class'=>'control-label'));
+        echo '<div class="controls">';
 		echo CHtml::activePasswordField($form,'currentPassword'); 
-		echo '</div>';
+		echo '</div></div>';
 	} ?>
 
 <?php $this->renderPartial(
 		'common.modules.user.views.user.passwordfields', array(
 			'form'=>$form)); ?>
-
-	<div class="row submit">
-	<?php echo CHtml::submitButton(Yum::t("Save")); ?>
+	<div class="form-actions">
+        <?php $this->widget('bootstrap.widgets.TbButton',array(
+                'buttonType' => 'submit',
+                'type' => 'primary',
+                'label' => Yum::t("Save")
+            )
+        ); ?>
 	</div>
-
+</fieldset>
 <?php echo CHtml::endForm(); ?>
 </div><!-- form -->

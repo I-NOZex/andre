@@ -5,10 +5,11 @@ $this->breadcrumbs = array(
     Yum::t('Users') => array('index'),
     Yum::t('Statistics'));
 
-Yum::register('statistics.css');
+Yum::register('css/statistics.css');
 
+echo '<p class="title">'.Yum::t('Statistics').'</p>';  
 
-echo '<table class="statistics" cellspacing=0 cellpadding=0>';
+echo '<table class="statistics table table-striped table-condensed" cellspacing=0 cellpadding=0>';
 $f = '<tr><td>%s</td><td>%s</td></tr>';
 printf($f, Yum::t('Total users'), $total_users);
 printf($f, Yum::t('Active users'), $active_users);

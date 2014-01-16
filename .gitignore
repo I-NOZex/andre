@@ -33,6 +33,9 @@ index
 
 #/console/config/*-env.php
 #/console/config/*-local.php
+/common/modules/friendship_/*
+/common/modules/membership_/*
+/common/modules/usergroup_/*
 
 #backups
 *.bak

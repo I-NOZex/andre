@@ -7,11 +7,11 @@
 <?php //$this->widget('bootstrap.widgets.TbAlert'); ?>
 <div class="row-fluid">
     <div class="span4">
-    <div class="title"><h3 class="no_margin">Conteúdo</h3></div>
+    <div class="title"><h3 class="no_margin">Artigos</h3></div>
     <?php
         $this->beginWidget('bootstrap.widgets.TbBox', array(
-        'title' => 'Filmes',
-        'headerIcon' => 'icon-facetime-video',
+        'title' => 'T-Shirts',
+        'headerIcon' => 'icon-tshirt',
         'htmlOptions' => array(''),
         ));
         echo '<div class="btn-toolbar no_margin">';
@@ -40,7 +40,7 @@
         $this->endWidget();
 
         $this->beginWidget('bootstrap.widgets.TbBox', array(
-                'title' => 'Series',
+                'title' => 'Encomendas',
                 'headerIcon' => 'icon-film',
                 'htmlOptions' => array(''),
                 ));

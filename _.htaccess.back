@@ -1,0 +1,81 @@
+
+
+
+
+#RewriteEngine On
+#RewriteBase /andre
+
+#DirectoryIndex frontend/www/index.php
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+
+#RewriteCond %{REQUEST_URI} ^cpanel/(.*)$
+# Why not "-f" - because it's domain of 3d level: VirtualDocumentRoot /path/to/htdocs/%-3/ and if I use "-f" file not founds :(
+#RewriteCond backend/www/%1 -F
+#RewriteRule . backend/www/%1 [L]
+
+#RewriteCond %{REQUEST_URI} ^cpanel/(.*)$
+#RewriteCond backend/www/%1 !-F
+#RewriteRule . backend/www/index.php?b=%1 [L]
+
+#RewriteCond %{REQUEST_URI} !cpanel/(.*)$
+#RewriteCond frontend/www%{REQUEST_URI} -F
+#RewriteRule . frontend/www%{REQUEST_URI}
+
+#RewriteCond %{REQUEST_URI} !cpanel/(.*)$
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule . frontend/www/index.php?f=%{REQUEST_URI}
+
+#RewriteCond %{REQUEST_URI} ^/admin/
+#RewriteRule ^ /backend/www/index.php [L]
+
+#RewriteCond %{REQUEST_URI} !^/(frontend|backend|common)
+#RewriteRule ^ /frontend/www/index.php
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^admin/?(.*?)$ backend/www/index.php [QSA,L]
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^uploads/?(.*?)$ uploads?url=$1 [QSA,L]
+
+# Frontend
+#RewriteEngine On
+#RewriteCond %{HTTP_HOST} ^localhost/andre$ [OR]
+#RewriteCond %{HTTP_HOST} ^www.localhost/andre$
+#RewriteCond %{REQUEST_URI} !^/frontend/www/
+#RewriteRule (.*) //frontend/www/$1
+
+#RewriteRule ^/?admin/([-a-zA-Z._]+)$ backend/www/$1 [L]
+#RewriteRule ^([-a-zA-Z._]+)$ frontend/www/$1 [L]
+
+#RewriteCond $1 ^api\/
+#RewriteRule ^(.*) api/www/index.php [L,PT]
+
+#RewriteCond $1 ^admin\/
+#RewriteRule ^([-a-zA-Z._]+) backend/www/$1 [L]
+
+#RewriteRule . frontend/www/index.php
+
+
+#RewriteCond %{REQUEST_FILENAME} -s [OR]
+#RewriteCond %{REQUEST_FILENAME} -l [OR]
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^.*$ - [NC,L]
+#RewriteRule ^.*(admin).*$ backend/www/index.php [NC,L]
+#RewriteRule ^.*$ frontend/www/index.php [NC,L]
+
+# Send all public requests to the public/ folder
+#RewriteRule ^$ frontend/www/ [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !^/admin [NC]
+#RewriteRule ^(.*)$ public/index.php/$1 [L]
+
+# Send all admin requests to the admin/ folder
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !^/admin [NC]
+#RewriteRule ^admin(/.*)?$ backend/www/index.php [L]
+</IfModule>

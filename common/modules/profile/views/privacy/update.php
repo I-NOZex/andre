@@ -11,129 +11,128 @@ $this->title = Yum::t('Privacy settings for {username}', array(
 
 ?>
 <div class="form">
-<p class="note">
-<?php Yum::requiredFieldNote(); ?>
-</p>
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			'id'=>'privacysetting-form',
+            //'name'=>'YumProfile',
 			'enableAjaxValidation'=>true,
-			)); 
-echo $form->errorSummary($model);
-?>
+            'type' => 'horizontal'
+			)); ?>
 
-<div class="profile_field_selection">
-<?php
-echo '<h3>' . Yum::t('Profile field public options') . '</h3>';
-echo '<p>' . Yum::t('Select the fields that should be public') . ':</p>';
-$i = 1;
+    <fieldset class="row-fluid">
+        <legend><?php echo Yum::t('Privacy settings for {username}', array(
+    			'{username}' => $model->user->username)); ?></legend>
 
-$counter=0;
+        <div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
 
-foreach(YumProfile::getProfileFields() as $field) {
-	$counter++;
-	if ($counter==1)echo '<div class="float-left" style="width: 175px;">';
+        <?php echo $form->errorSummary($model); ?>
 
-	printf('<div>%s<label class="profilefieldlabel" for="privacy_for_field_%d">%s</label></div>',
-			CHtml::checkBox("privacy_for_field_{$i}",
-				$model->public_profile_fields & $i),
-			$i,
-			Yum::t($field)
+        <div class="span8">
+        <?php if(Yum::hasModule('friendship')) {
+            $form->dropDownListRow($model, 'message_new_friendship', array(
+                    0 => Yum::t('No'),
+                    1 => Yum::t('Yes')),
+                array('class'=>'span9'));
+        } ?>
 
-			);
-	$i *= 2;
+        <?php echo $form->dropDownListRow($model, 'message_new_message', array(
+                0 => Yum::t('No'),
+                1 => Yum::t('Yes')),
+            array('class'=>'span9')); ?>
 
-	if ($counter%4==0) echo '</div><div class="float-left" style="width: 175px;">';
-}
-if ($counter%4!=0) echo '</div>';
-echo '<div class="clear"></div>';
-?>
-</div>
+        <?php if(Yum::module('profile')->enableProfileComments) { ?>
+            <div class="row message_new_profilecomment">
+                <?php echo $form->dropDownListRow($model, 'message_new_profilecomment', array(
+                    0 => Yum::t('No'),
+                    1 => Yum::t('Yes')),
+                array('class'=>'span9')); ?>
+            </div>
+        <?php } ?>
 
+        <?php if(Yum::module()->enableOnlineStatus) {
+        echo $form->DropDownListRow($model, 'show_online_status',
+            array(
+            '0' => Yum::t( 'Do not show my online status'),
+            '1' => Yum::t( 'Show my online status to everyone'),
+            ),
+        array('class'=>'span9'));
+        } ?>
 
-<?php if(Yum::hasModule('friendship')) { ?>
-	<div class="row">
-		<?php echo $form->labelEx($model,'message_new_friendship'); ?>
-		<?php echo $form->dropDownList($model, 'message_new_friendship', array(
-					0 => Yum::t('No'),
-					1 => Yum::t('Yes'))); ?>
-		<?php echo $form->error($model,'message_new_friendship'); ?>
-		</div>
-		<?php } ?>
+        <?php
+        echo $form->DropDownListRow($model, 'log_profile_visits',
+            array(
+            '0' => Yum::t( 'Do not show the owner of a profile when i visit him'),
+            '1' => Yum::t( 'Show the owner when i visit his profile'),
+            ),
+        array('class'=>'span9')); ?>
 
-		<div class="row">
-		<?php echo $form->labelEx($model,'message_new_message'); ?>
-		<?php echo $form->dropDownList($model, 'message_new_message', array(
-					0 => Yum::t('No'),
-					1 => Yum::t('Yes'))); ?>
+        <?php if(Yum::hasModule('role')) {
+        echo $form->DropDownListRow($model, 'appear_in_search',
+            array(
+            '0' => Yum::t( 'Do not appear in search'),
+            '1' => Yum::t( 'Appear in search'),
+            ),
+        array('class'=>'span9'));
+        } ?>
 
-		<?php echo $form->error($model,'message_new_message'); ?>
-		</div>
+        <?php echo $form->hiddenField($profile,'id');
+        /*echo $form->textFieldRow($model, 'ignore_users',
+            array('class'=>'span9','size' => 100,'hint'=>Yum::t('Separate usernames with comma to ignore specified users')));*/ ?>
 
-		<?php if(Yum::module('profile')->enableProfileComments) { ?>
+	<?php echo $form->select2Row($model, 'ignore_users', array(
+                        'asDropDownList' => false,
+                        'options' => array(
+                          'data' => YumUser::model()->getUsers(),
+                          'placeholder' => Yum::t('Separate usernames with comma to ignore specified users'),
+                          'containerCssClass' => 'span9  no_margin',
+                          'tokenSeparators' => array(','),
+                          'multiple'=>true,
+                          'width'=>'74.359%',
+                          'initSelection' => 'js:function (element, callback) {
+                                  var val = [];
+                                  $(element.val().split(",")).each(function () {
+                                      val.push({id: this, text: this});
+                                  });
+                                  callback(val);}
+                          ')
+                      )); ?>
+        </div>
 
-			<div class="row message_new_profilecomment">
-				<?php echo $form->labelEx($model,'message_new_profilecomment'); ?>
-				<?php echo $form->dropDownList($model, 'message_new_profilecomment', array(
-							0 => Yum::t('No'),
-							1 => Yum::t('Yes'))); ?>
-				<?php echo $form->error($model,'message_new_profilecomment'); ?>
-				</div>
+        <?php /*<div class="profile_field_selection">*/ ?>
+        <div class="span4 no_margin">
+            <?php
+            echo '<h4 style="margin: 0 0 5px;">' . Yum::t('Profile field public options') . '</h4>';
+            echo '<p class="help-block">' . Yum::t('Select the fields that should be public') . ':</p>';
+            $i = 1;
 
-				<?php } ?>
+            $counter=0;
 
-				<?php if(Yum::module()->enableOnlineStatus) { ?>
-					<div class="row">
-						<?php 
-						echo CHtml::activeLabelEx($model, 'show_online_status'); 
-					echo CHtml::activeDropDownList($model, 'show_online_status',
-							array(
-								'0' => Yum::t( 'Do not show my online status'),
-								'1' => Yum::t( 'Show my online status to everyone'),
-								)
-							);
-					?>
-						</div>
-						<?php } ?>
+            foreach(YumProfile::getProfileFields() as $field) {
+                $counter++;
+                //if ($counter==1)echo '<div class="float-left" style="width: 175px;">';
+                if ($counter==1) echo '<div class="controls no_margin">';
+                printf('<label class="checkbox">%s<label for="privacy_for_field_%d">%s</label></label>',
+                CHtml::checkBox("privacy_for_field_{$i}",
+                $model->public_profile_fields & $i),
+                $i,
+                Yum::t($field)
 
-						<div class="row">
-						<?php 
-						echo CHtml::activeLabelEx($model, 'log_profile_visits'); 
-						echo CHtml::activeDropDownList($model, 'log_profile_visits',
-								array(
-									'0' => Yum::t( 'Do not show the owner of a profile when i visit him'),
-									'1' => Yum::t( 'Show the owner when i visit his profile'),
-									)
-								);
-						?>
-						</div>
+                );
+                $i *= 2;
 
-						<?php if(Yum::hasModule('role')) { ?>
-							<div class="row">
-								<?php 
-								echo CHtml::activeLabelEx($model, 'appear_in_search'); 
-							echo CHtml::activeDropDownList($model, 'appear_in_search',
-									array(
-										'0' => Yum::t( 'Do not appear in search'),
-										'1' => Yum::t( 'Appear in search'),
-										)
-									);
-							?>
-								</div>
-								<?php } ?>
+                if ($counter%4==0) echo '</div><div >';
+            }
+            if ($counter%4!=0) echo '</div>';
+            echo '<div class="clear"></div>';
+            ?>
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <?php $this->widget('bootstrap.widgets.TbButtonGroup',array(
+                    'buttons' => array(
+                        array('label' => Yum::t('Save'), 'buttonType' => 'submit', 'type'=>'primary'),
+                        array('label' => Yum::t( 'Cancel'), array('submit' => array('//profile/profile/view')))
+                    )));?>
+    </div>
 
-								<div class="row">
-								<?php echo $form->labelEx($model,'ignore_users'); ?>
-								<?php echo $form->textField($model, 'ignore_users',  array('size' => 100)); ?>
-								<?php echo $form->error($model,'ignore_users'); ?>
-								<div class="hint">
-								<p> <?php echo Yum::t('Separate usernames with comma to ignore specified users'); ?> </p>
-								</div>
-								</div>
-
-								<?php
-								echo CHtml::Button(Yum::t( 'Cancel'), array(
-											'submit' => array('//profile/profile/view')));
-								echo CHtml::submitButton(Yum::t('Save')); 
-								$this->endWidget(); ?>
-								</div> <!-- form -->
+<?php $this->endWidget(); ?>
+</div> <!-- form -->

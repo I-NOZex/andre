@@ -1,18 +1,12 @@
-<div class="container">
-<div class="span12">
-<div class="row">
-
 <?php
 $this->breadcrumbs=array(
-	Yum::t('Actions')=>array('index'),
+	Yum::t('Action')=>array('index'),
 	$model->title,
-);
+); ?>
 
-?>
+<p class="title"><?php echo Yum::t('Action').' '.$model->title; ?></p>
 
-<h1> <?php echo $model->title; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('bootstrap.widgets.TbDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -21,7 +15,3 @@ $this->breadcrumbs=array(
 		'subject',
 	),
 )); ?>
-
-</div>
-</div>
-</div>

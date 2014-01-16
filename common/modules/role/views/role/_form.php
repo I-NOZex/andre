@@ -1,61 +1,45 @@
 <div class="form">
+<fieldset>
+    <legend><?php echo Yum::t('Create role'); ?></legend>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm',
+array('id' => 'horizontalForm',
+'type' => 'horizontal')); ?>
 
-<?php echo CHtml::beginForm(); ?>
+<div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
 
-<?php echo Yum::requiredFieldNote(); ?>
+<?php echo $form->errorSummary($model); ?>
 
-<?php echo CHtml::errorSummary($model); ?>
+<?php echo $form->textFieldRow($model,'title',array('class'=>'span5')); ?>
 
-<div class="row">
-<?php echo CHtml::activeLabelEx($model,'title'); ?>
-<?php echo CHtml::activeTextField($model,'title',array('size'=>20,'maxlength'=>20)); ?>
-<?php echo CHtml::error($model,'title'); ?>
-</div>
+<?php echo $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50,'class'=>'span5')); ?>
 
-<div class="row">
-<?php echo CHtml::activeLabelEx($model,'description'); ?>
-<?php echo CHtml::activeTextArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-<?php echo CHtml::error($model,'description'); ?>
-</div>	
+<?php if(Yum::hasModule('membership')) {
+    $hint = Yum::t('Leave empty or set to 0 to disable membership for this role.');
+    $hint .= '<br />'.Yum::t('Set to >0 to enable membership for this role and set a priority.');
+    $hint .= '<br />'.Yum::t('Higher is usually more worthy. This is used to determine downgrade possibilities.');
+    echo $form->textFieldRow($model, 'membership_priority',array('hint' =>$hint,'class'=>'span5')); ?>
 
+    <?php echo $form->textFieldRow($model, 'price',
+    array('hint' =>Yum::t('How expensive is a membership? Set to 0 to disable membership for this role'),'class'=>'span5')); ?>
 
-<?php if(Yum::hasModule('membership')) { ?>
-<div class="row">
-<?php echo CHtml::activeLabelEx($model,'membership_priority'); ?>
-<?php echo CHtml::activeTextField($model, 'membership_priority'); ?>
-<div class="hint">
-<?php echo Yum::t('Leave empty or set to 0 to disable membership for this role.'); ?>
-<?php echo Yum::t('Set to >0 to enable membership for this role and set a priority.'); ?>
-<?php echo Yum::t('Higher is usually more worthy. This is used to determine downgrade possibilities.'); ?>
-</div>
-</div>
-<div class="row">
-<?php echo CHtml::activeLabelEx($model,'price'); ?>
-<?php echo CHtml::activeTextField($model, 'price'); ?>
-<?php echo CHtml::Error($model, 'price'); ?>
-</div>
-<div class="hint"> 
-<?php echo Yum::t('How expensive is a membership? Set to 0 to disable membership for this role'); ?>
-</div>
+    <?php echo $form->textFieldRow($model, 'duration',
+    array('hint' =>Yum::t('How many days will the membership be valid after payment?'),'class'=>'span5')); ?>
 
-<div class="row">
-<?php echo CHtml::activeLabelEx($model,'duration'); ?>
-<?php echo CHtml::activeTextField($model, 'duration'); ?>
-<?php echo CHtml::Error($model, 'duration'); ?>
-</div>
-<div class="hint"> 
-<?php echo Yum::t('How many days will the membership be valid after payment?'); ?>
-
-</div>
-<div style="clear: both;"> </div>
+    <div style="clear: both;"> </div>
 <?php } ?>
 
-<div class="row buttons">
-<?php echo CHtml::submitButton($model->isNewRecord 
-		? Yum::t('Create role') 
-		: Yum::t('Save role')); ?>
+</fieldset>
+
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => $model->isNewRecord ? Yum::t('Create role') : Yum::t('Save role')
+    )
+); ?>
 </div>
 
-<?php echo CHtml::endForm(); ?>
+<?php $this->endWidget(); ?>
 </div><!-- form -->
 

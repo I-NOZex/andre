@@ -67,6 +67,10 @@ return CMap::mergeArray(
 					'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 				)
 			),
+            'request' => array(
+                /*'baseUrl' => 'http://localhost/andre/admin',
+                'basePath' => '/andre/backend/www',*/
+            ),
 		),
 	),
 	(file_exists(__DIR__ . '/main-env.php') ? require(__DIR__ . '/main-env.php') : array()),

@@ -5,7 +5,9 @@ $this->breadcrumbs = array(
 	Yum::t('Profiles') => array('index'),
 	Yum::t('Profile visits'));
 
-$this->widget('zii.widgets.grid.CGridView', array(
+echo '<p class="title">'.Yum::t('Show profile visits').'</p>'; 
+
+$this->widget('bootstrap.widgets.TbGridView', array(
 			'dataProvider'=>$model->search(),
 			'columns'=>array(
 				array(

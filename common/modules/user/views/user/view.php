@@ -1,4 +1,4 @@
-<?
+<?php
 $profiles = Yum::hasModule('profile');
 
 if(Yum::module()->loginType & UserModule::LOGIN_BY_EMAIL & $profiles)
@@ -11,6 +11,15 @@ $this->title = Yum::t('View user "{username}"',array(
 $this->breadcrumbs = array(Yum::t('Users') => array('index'), $model->username);
 
 echo Yum::renderFlash();
+$buttons = array();
+if(Yii::app()->user->isAdmin()) {
+$buttons[] = array('label'=>Yum::t('User administration'),'url'=>array('//user/user/admin'),'icon'=>'icon-pencil');
+
+$buttons[] = array('label'=>Yum::t('Update User'),'url'=>array('user/update', 'id' => $model->id),'icon'=>'icon-user');
+}
+
+if(Yum::hasModule('profile'))
+$buttons[] = array('label'=>Yum::t('Visit profile'),'url'=>array('//profile/profile/view', 'id' => $model->id),'icon'=>'icon-eye-open');
 
 if(Yii::app()->user->isAdmin()) {
 	$attributes = array(
@@ -29,9 +38,6 @@ if(Yii::app()->user->isAdmin()) {
 						));
 
 	array_push($attributes,
-		/*
-		There is no added value to showing the password/salt/activationKey because 
-		these are all encrypted 'password', 'salt', 'activationKey',*/
 		array(
 			'name' => 'createtime',
 			'value' => date(UserModule::$dateFormat,$model->createtime),
@@ -57,11 +63,23 @@ if(Yii::app()->user->isAdmin()) {
 			)
 		);
 
-	$this->widget('zii.widgets.CDetailView', array(
+$this->beginWidget(
+'bootstrap.widgets.TbBox',
+array(
+'title' => sprintf('Utilizador "%s"',$model->username),
+'headerIcon' => 'icon-th-list',
+'htmlOptions' => array('class' => 'bootstrap-widget-table'),
+'headerButtons' => array(
+                      array(
+                      'class' => 'bootstrap.widgets.TbButtonGroup',
+                      'buttons' => $buttons
+                      ))
+));
+	$this->widget('bootstrap.widgets.TbDetailView', array(
 				'data'=>$model,
 				'attributes'=>$attributes,
 				));
-
+$this->endWidget();
 } else {
 	// For all users
 	$attributes = array(
@@ -69,13 +87,13 @@ if(Yii::app()->user->isAdmin()) {
 			);
 
 	if($profiles) {
-		$profileFields = YumProfile::getProfileFields();
+		$profileFields = YumProfileField::model()->forAll()->findAll();
 		if ($profileFields) {
 			foreach($profileFields as $field) {
 				array_push($attributes,array(
-							'label' => Yum::t($field),
-							'name' => $field,
-							'value' => $model->profile->getAttribute($field),
+							'label' => Yii::t('UserModule.user', $field->title),
+							'name' => $field->varname,
+							'value' => $model->profile->getAttribute($field->varname),
 							));
 			}
 		}
@@ -92,7 +110,7 @@ if(Yii::app()->user->isAdmin()) {
 				)
 			);
 
-	$this->widget('zii.widgets.CDetailView', array(
+	$this->widget('bootstrap.widgets.TbDetailView', array(
 				'data'=>$model,
 				'attributes'=>$attributes,
 				));
@@ -100,36 +118,24 @@ if(Yii::app()->user->isAdmin()) {
 
 
 if(Yum::hasModule('role') && Yii::app()->user->isAdmin()) {
-	Yii::import('common.modules.role.models.*');
+	Yii::import('application.modules.role.models.*');
 	echo '<h2>'.Yum::t('This user belongs to these roles:') .'</h2>';
 
 	if($model->roles) {
-		echo "<ul>";
+		echo "<div class=\"well well-small\"> ";
+        $itens = array();
 		foreach($model->roles as $role) {
-			echo CHtml::tag('li',array(),CHtml::link(
-						$role->title,array('//role/role/view','id'=>$role->id)),true);
+            $itens[] = array('label'=>$role->title,'url'=>array('//role/role/view','id'=>$role->id),'active'=>true);
 		}
-		echo "</ul>";
+        $this->widget('bootstrap.widgets.TbMenu', array(
+            'type'=>'pills', // '', 'tabs', 'pills' (or 'list')
+            'stacked'=>false, // whether this is a stacked menu
+            'items'=>$itens,
+            'htmlOptions'=>array('class'=>'no_margin'),
+        ));
+		echo "</div>";
 	} else {
 		printf('<p>%s</p>', Yum::t('None'));
 	}
 }
-
-if(Yii::app()->user->isAdmin()) {
-	echo CHtml::link(Yum::t('User administration'), 
-			array('//user/user/admin'), array(
-				'class' => 'btn'));
-
-	echo CHtml::link(Yum::t('Update User'), 
-			array('user/update', 'id' => $model->id), array(
-				'class' => 'btn'));
-
-}
-
-if(Yum::hasModule('profile'))
-echo CHtml::link(Yum::t('Visit profile'), array(
-			'//profile/profile/view', 'id' => $model->id), array(
-'class' => 'btn'));
-
-
 	?>

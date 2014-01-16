@@ -6,19 +6,17 @@ $this->breadcrumbs=array(
 	Yum::t('Roles')=>array('index'),
 	Yum::t('View'),
 	$model->title
-);
+); ?>
 
-echo $model->description;
+<p class="title"> <?php echo Yum::t('View Role'); ?></p>
 
+<?php if( !empty($model->description)) echo '<div class="alert alert-info"><i>'.$model->description.'</i></div>'; ?>
 
- ?>
-
-<br />
-<?php echo Yum::p('These users have been assigned to this role'); ?> 
+<div class="label label-info"><?php echo Yum::t('These users have been assigned to this role'); ?></div>
 
 <?php 
 if($assignedUsers);
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'dataProvider'=>$assignedUsers,
     'columns'=>array(
         'username',          
@@ -37,7 +35,7 @@ if(Yum::hasModule('membership') && $model->membership_priority) {
 		echo Yum::p('These users have a ordered memberships of this role'); 
 
 		if($activeMemberships)
-			$this->widget('zii.widgets.grid.CGridView', array(
+			$this->widget('bootstrap.widgets.TbGridView', array(
 						'dataProvider'=>$activeMemberships,
 						'columns'=>array(
 							'id',
@@ -58,9 +56,14 @@ if(Yum::hasModule('membership') && $model->membership_priority) {
 
 	}
 
-if(Yii::app()->user->isAdmin())
-	echo CHtml::Button(Yum::t('Update role'), array(
-				'submit' => array(
-					'role/update', 'id' => $model->id)));
-
-?>
+if(Yii::app()->user->isAdmin()){ ?>
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'htmlOptions' => array('submit' => array('role/update', 'id' => $model->id)),
+        'type' => 'primary',
+        'buttonType' => 'button',
+        'label' => Yum::t('Update role')
+    )
+); ?>
+</div>
+<?php } ?>

@@ -1,38 +1,36 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'action-form',
 	'enableAjaxValidation'=>false,
+    'type' => 'horizontal'
 )); 
 
-echo Yum::requiredFieldNote();
 ?>
+<fieldset>
+
+    <legend><?php echo ($model->isNewRecord) ? Yum::t('Create Action') : "Update Action $model->id"; ?></legend>
+
+    <div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'title'); ?>
-	</div>
+		<?php echo $form->textFieldRow($model,'title',array('size'=>60,'maxlength'=>255,'class'=>'span4')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'comment'); ?>
-		<?php echo $form->textArea($model,'comment',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'comment'); ?>
-	</div>
+		<?php echo $form->textAreaRow($model,'comment',array('rows'=>6, 'cols'=>50,'class'=>'span4')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'subject'); ?>
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'subject'); ?>
-	</div>
+		<?php echo $form->textFieldRow($model,'subject',array('size'=>60,'maxlength'=>255,'class'=>'span4')); ?>
 
-	<div class="row buttons">
-	<?php echo CHtml::submitButton($model->isNewRecord 
-			? Yum::t('Create') 
-			: Yum::t('Save')); ?>
-	</div>
+</fieldset>
+
+<div class="form-actions">
+    <?php $this->widget(
+    'bootstrap.widgets.TbButton',
+    array('buttonType' => 'submit',
+    'type' => 'primary',
+    'label' => $model->isNewRecord ? Yum::t('Create') : Yum::t('Save'))
+    ); ?>
+</div>
 
 <?php $this->endWidget(); ?>
 

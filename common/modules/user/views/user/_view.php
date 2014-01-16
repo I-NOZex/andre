@@ -1,8 +1,10 @@
-<div class="tooltip" id="tooltip_<?php echo $data->id; ?>"> 
+<?php
+/*<div class="tooltip" id="tooltip_<?php echo $data->id; ?>">
 	<?php $this->renderPartial('_tooltip', array('data' =>  $data)); ?>
-</div>
+</div>*/
+?>
 
-<div class="view_user" id="user_<?php echo $data->id;?>"> 
+<div class="<?php echo (empty($widget->viewData['cssclass'])) ? $cssclass : $widget->viewData['cssclass']; ?>" id="user_<?php echo $data->id;?>">
 
 <?php
 $online = '';
@@ -16,22 +18,26 @@ if(Yum::hasModule('profile') && Yum::module('profile')->enablePrivacySetting) {
 
 ?>
 
-<?php printf('<h3>%s %s</h3>', $data->username, $online); ?>
+<?php printf('<h3>%s %s %s</h3>', CHtml::link($data->getAvatar(true),
+		array('//profile/profile/view', 'id' => $data->id)), $data->username, $online); ?>
 
-<?php echo CHtml::link($data->getAvatar(true),
-		array(
-			'//profile/profile/view', 'id' => $data->id)); ?>
+</div>
+
+<div class="popover fade top in" id="tooltip_<?php echo $data->id; ?>">
+	<div class="arrow"></div>
+	<h3 class="popover-title"><?php echo $data->username; ?></h3>
+	<div class="popover-content"><?php $this->renderPartial('_tooltip', array('data' =>  $data)); ?></div>
 </div>
 
 <?php
 Yii::app()->clientScript->registerScript('tooltip_'.$data->id, "
 $('#user_{$data->id}').tooltip({
-'position': 'top',
-'offset': [0, -50],
+'position': 'top center',
+//'offset': [-20, -275],
 'tip': '#tooltip_{$data->id}',
-'predelay': 100,
-'fadeOutSpeed': 100,
-
+'fadeInSpeed': 250,
+'fadeOutSpeed': 150,
+'effect':'fade'
 }); 
 ");
 ?>

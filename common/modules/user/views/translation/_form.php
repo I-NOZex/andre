@@ -1,44 +1,42 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'translation-form',
+    'type' => 'inline',
 	'enableAjaxValidation'=>true,
 	'enableClientValidation'=>true,
 )); ?>
 
 
-	<?php echo Yum::requiredFieldNote(); ?>
+<div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
 
 	<?php echo $form->errorSummary($models); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($models[0],'message'); ?>
-		<?php echo $form->textField($models[0],'message'); ?>
-		<?php echo $form->error($models[0],'message'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($models[0],'category'); ?>
-		<?php echo $form->textField($models[0],'category'); ?>
-		<?php echo $form->error($models[0],'category'); ?>
-	</div>
-
+    <div class="row-fluid">
+        <div class="span6 no_margin">
+        <?php echo $form->labelEx($models[0],'message',array('class'=>'span3 right')); ?>
+    	<?php echo $form->textFieldRow($models[0],'message',array('class'=>'span9')); ?>
+        </div><div class="span6">
+        <?php echo $form->labelEx($models[0],'category',array('class'=>'span3 right')); ?>
+    	<?php echo $form->textFieldRow($models[0],'category',array('class'=>'span9 pull-right')); ?>
+        </div>
+    </div>
 	<hr />
+    <div class="items row-fluid">
+    	<?php foreach($models as $model) { ?>
+        	<div class="span3">
+            	<?php echo CHtml::label($model->language, 'translation_'.$model->language); ?>
+            	<?php echo CHtml::textField('translation_'.$model->language, $model->translation,array('class'=>'span12')); ?>
+        	</div>
+    	<?php } ?>
+    </div>
 
-	<?php foreach($models as $model) { ?>
-	<div style="float: left; width: 200px;"> 
-	<div class="row">
-	<?php echo CHtml::label($model->language, 'translation_'.$model->language); ?>
-	<?php echo CHtml::textField('translation_'.$model->language, $model->translation); ?>
-	</div>
-
-	</div>
-	<?php } ?>
-
-<div style="clear: both;"> </div>
-<div class="row buttons">
-<?php echo CHtml::submitButton($models[0]->isNewRecord 
-		? Yum::t('Create') : Yum::t('Save')); ?>
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => $models[0]->isNewRecord ? Yum::t('Create') : Yum::t('Save')
+    )
+); ?>
 </div>
 
 <?php $this->endWidget(); ?>

@@ -17,10 +17,13 @@ return CMap::mergeArray(
 			'db' => array(
 				'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
 				'enableParamLogging' => YII_DEBUG,
-				'charset' => 'utf8'
+                'emulatePrepare' => true,
+        		'charset' => 'utf8',
+        		// prior to yum0.8rc7 tablePrefix is not necessary anymore, but it can not hurt
+        		'tablePrefix' => '',
 			),
 			'urlManager' => array(
-				'urlFormat' => 'path',
+				//'urlFormat' => 'path',
 				'showScriptName' => false,
 				'urlSuffix' => '/',
 			),

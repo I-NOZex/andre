@@ -5,7 +5,9 @@ $this->breadcrumbs=array(
 	Yum::t('Messages')=>array('index'),
 	Yum::t('Sent messages'));
 
-$this->widget('zii.widgets.grid.CGridView', array(
+echo '<p class="title">' . Yum::t('Sent messages') . '</p>';
+
+$this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'yum-sent-message-grid',
 	'dataProvider' => $model->search(true),
 	'columns'=>array(
@@ -24,7 +26,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => '$data->getDate()',
 		),
 		array(
-			'class'=>'CButtonColumn',
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array('width'=>'16'),
 			'template' => '{view}',
 		),
 	),

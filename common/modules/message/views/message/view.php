@@ -3,16 +3,10 @@ $this->title = $model->title;
 $this->breadcrumbs=array(Yum::t('Messages')=>array('index'),$model->title);
 ?>
 
-<h2> <?php echo Yum::t('Message from') .  ' <em>' . $model->from_user->username . '</em>';
+<p class="title"> <?php echo Yum::t('Message from') .  ' <em>' . $model->from_user->username . '</em>: '; ?>
+<b><?php echo $model->title; ?></b></p>
 
-echo ': ' . $model->title; ?> 
-</h2>
-
-<hr />
-
-<div class="message">
-<?php echo $model->message; ?>
-</div>
+<div class="message well well-small"><?php echo $model->message; ?></div>
 
 <hr />
 <?php

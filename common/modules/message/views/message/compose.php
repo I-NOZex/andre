@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(!$this->title) 
 	$this->title = Yum::t('Compose new message'); 
 if($this->breadcrumbs == array())
@@ -6,17 +6,20 @@ if($this->breadcrumbs == array())
 ?>
 
 <div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			'id'=>'yum-message-form',
 			'action' => array('//message/message/compose'),
 			'enableAjaxValidation'=>true,
 			'enableClientValidation'=>true,
+            'type' => 'horizontal'
 			)); ?>
 
-<?php echo Yum::requiredFieldNote(); 
+<fieldset>
+<legend><?php echo Yum::t('Write a message'); ?></legend>
 
-echo $form->errorSummary($model); 
+<div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
+
+<?php echo $form->errorSummary($model);
 
 echo CHtml::hiddenField('YumMessage[answered]', $answer_to);
 
@@ -25,32 +28,22 @@ if($to_user_id) {
 	echo Yum::t('This message will be sent to {username}', array(
 				'{username}' => YumUser::model()->findByPk($to_user_id)->username));
 } else {
-	echo $form->label($model, 'to_user_id');
-	echo $form->dropDownList($model, 'to_user_id', 
-			CHtml::listData(Yii::app()->user->data()->getFriends(), 'id', 'username'));
-	echo '<div class="hint">'.Yum::t('Only your friends are shown here').'</div>';
+	echo $form->dropDownListRow($model, 'to_user_id',
+			CHtml::listData(Yii::app()->user->data()->getFriends(), 'id', 'username'),
+            array('hint'=>Yum::t('Only your friends are shown here'),'class'=>'span4'));
+} ?>
+<?php echo $form->textFieldRow($model,'title',array('size'=>45,'maxlength'=>45,'class'=>'span4')); ?>
 
-}
-?>
-<div class="row">
-<?php echo $form->labelEx($model,'title'); ?>
-<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
-<?php echo $form->error($model,'title'); ?>
-</div>
+<?php echo $form->textAreaRow($model,'message',array('rows'=>6, 'cols'=>50,'class'=>'span4')); ?>
+</fieldset>
 
-<div class="row">
-<?php echo $form->labelEx($model,'message'); ?>
-<?php echo $form->textArea($model,'message',array('rows'=>6, 'cols'=>50)); ?>
-<?php echo $form->error($model,'message'); ?>
-</div>
-
-<div class="row buttons">
-
-<?php echo CHtml::submitButton($model->isNewRecord 
-			? Yum::t('Send') 
-			: Yum::t('Save'));
-?>
-
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => $model->isNewRecord ? Yum::t('Send') : Yum::t('Save')
+    )
+); ?>
 </div>
 
 <?php $this->endWidget(); ?>

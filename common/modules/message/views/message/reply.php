@@ -1,37 +1,32 @@
 <div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<fieldset>
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			'id'=>'yum-message-form',
 			'action' => array('//message/message/compose'),
 			'enableAjaxValidation'=>true,
+            'type' => 'horizontal'
 			)); ?>
 
-<?php echo Yum::requiredFieldNote(); 
-
+<div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
+<?php
 	echo CHtml::hiddenField('YumMessage[to_user_id]', $to_user_id);
 	echo CHtml::hiddenField('YumMessage[answered]', $answer_to);
-	echo Yum::t('This message will be sent to {username}', array(
-				'{username}' => YumUser::model()->findByPk($to_user_id)->username));
+    echo '<div class="control-group controls">'.Yum::t('This message will be sent to {username}', array(
+				'{username}' => '<b>'.YumUser::model()->findByPk($to_user_id)->username.'</b>')).'</div>';
 ?>
 
-<div class="row">
-<?php echo $form->labelEx($model,'title'); ?>
-<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
-<?php echo $form->error($model,'title'); ?>
-</div>
+<?php echo $form->textFieldRow($model,'title',array('size'=>45,'maxlength'=>45,'class'=>'span4')); ?>
 
-<div class="row">
-<?php echo $form->labelEx($model,'message'); ?>
-<?php echo $form->textArea($model,'message',array('rows'=>6, 'cols'=>50)); ?>
-<?php echo $form->error($model,'message'); ?>
-</div>
+<?php echo $form->textAreaRow($model,'message',array('rows'=>6, 'cols'=>50,'class'=>'span4')); ?>
 
-<div class="row buttons">
-
-<?php echo CHtml::submitButton(Yum::t('Reply')); ?>
-
-</div>
-
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton',array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => Yum::t('Reply')
+    )
+); ?></div>
+</fieldset>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
