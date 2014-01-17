@@ -2,3 +2,7 @@
 Instalei o YUM, componente de gestao de utilizadores
 Talves venha a mudar o componente que usei, ainda sem certezas, apenas instalei este pois ja trabalhei muito com ele, mas talves seja desnecessariamente completo (por exemplo, amizades, mensagens privadas, subscriçoes, sao coisas que nao se vai dar uso, existe uma alternativa Yii User, talves venha a ficar essa, lgo se ve ;] )
 =========================================================
+
+[17:26] 17 Janeiro:::::::::::::::::::::::::::::::::::::::
+Varias atualizaçoes de layout, update da base de dados, e criação dos forms, views e controllers que permitem gerir tshirts e encomendas (criar, modificar, apagar, eliminar...)
+=========================================================
