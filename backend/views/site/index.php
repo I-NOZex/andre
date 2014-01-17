@@ -6,7 +6,7 @@
 <?php //Yii::app()->user->setFlash('success', '<strong>Well done!</strong> You have successfully created your Yii application.');?>
 <?php //$this->widget('bootstrap.widgets.TbAlert'); ?>
 <div class="row-fluid">
-    <div class="span4">
+    <div class="span6">
     <div class="title"><h3 class="no_margin">Artigos</h3></div>
     <?php
         $this->beginWidget('bootstrap.widgets.TbBox', array(
@@ -16,18 +16,18 @@
         ));
         echo '<div class="btn-toolbar no_margin">';
             $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Inserir novo',
+            'label' => 'Inserir Nova',
             'size'=>'small',
             'type'=>'success',
             'icon'=>'icon-white icon-plus',
-            'url'=>array('/filme/create')
+            'url'=>array('/tshirt/new')
             ));
             $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Ver Todos',
+            'label' => 'Ver Todas',
             'size'=>'small',
             'type'=>'inverse',
             'icon'=>'icon-white icon-list',
-            'url'=>array('/filme/')
+            'url'=>array('/tshirt/')
             ));
             $this->widget('bootstrap.widgets.TbButton',array(
             'label' => 'Categorias',
@@ -41,7 +41,7 @@
 
         $this->beginWidget('bootstrap.widgets.TbBox', array(
                 'title' => 'Encomendas',
-                'headerIcon' => 'icon-film',
+                'headerIcon' => 'icon-shopping-cart',
                 'htmlOptions' => array(''),
                 ));
         echo '<div class="btn-toolbar no_margin">';
@@ -70,65 +70,7 @@
         $this->endWidget();
     ?></div>
 
-    <div class="span4">
-    <div class="title"><h3 class="no_margin">Gestão</h3></div>
-    <?php
-        $this->beginWidget('bootstrap.widgets.TbBox', array(
-        'title' => 'Comentários &nbsp;<span class="badge badge-warning pull-right">0</span>',
-        'headerIcon' => 'icon-comment',
-        'htmlOptions' => array(''),
-        ));
-        echo '<div class="btn-toolbar no_margin">';
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Aprovar Pendentes',
-            'size'=>'small',
-            'type'=>'success',
-            'icon'=>'icon-white icon-ok',
-            ));
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Ver Todos',
-            'size'=>'small',
-            'type'=>'inverse',
-            'icon'=>'icon-white icon-list',
-            ));
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Top Comentados',
-            'size'=>'small',
-            'type'=>'inverse',
-            'icon'=>'icon-white icon-star',
-            ));
-        echo '</div>';
-        $this->endWidget();
-
-        $this->beginWidget('bootstrap.widgets.TbBox', array(
-        'title' => 'Denuncias &nbsp;<span class="badge badge-warning">4</span>',
-        'headerIcon' => 'icon-exclamation-sign',
-        'htmlOptions' => array(''),
-        ));
-        echo '<div class="btn-toolbar no_margin">';
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Ver Pendentes',
-            'size'=>'small',
-            'type'=>'danger',
-            'icon'=>'icon-white icon-remove',
-            ));
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Ver Solucionados',
-            'size'=>'small',
-            'type'=>'success',
-            'icon'=>'icon-white icon-ok',
-            ));
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Ver Todos',
-            'size'=>'small',
-            'type'=>'inverse',
-            'icon'=>'icon-white icon-list',
-            ));
-        echo '</div>';
-        $this->endWidget();
-    ?></div>
-
-    <div class="span4">
+    <div class="span6">
     <div class="title"><h3 class="no_margin">Administração</h3></div>
     <?php
         $this->beginWidget('bootstrap.widgets.TbBox', array(

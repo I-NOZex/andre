@@ -15,15 +15,15 @@ echo "\$this->breadcrumbs=array(
 ?>
 
 $this->menu=array(
-	array('label'=>'List <?php echo $this->modelClass; ?>','url'=>array('index')),
-	array('label'=>'Create <?php echo $this->modelClass; ?>','url'=>array('create')),
-	array('label'=>'Update <?php echo $this->modelClass; ?>','url'=>array('update','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>)),
-	array('label'=>'Delete <?php echo $this->modelClass; ?>','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage <?php echo $this->modelClass; ?>','url'=>array('admin')),
+	array('label'=>'Listar <?php echo $this->pluralize($this->modelClass); ?>','url'=>array('index'),'icon'=>'list'),
+	array('label'=>'Nova <?php echo $this->modelClass; ?>','url'=>array('create'),'icon'=>'plus'),
+	array('label'=>'Atualizar <?php echo $this->modelClass; ?>','url'=>array('update','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>),'icon'=>'pencil'),
+	array('label'=>'Eliminar <?php echo $this->modelClass; ?>','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>),'confirm'=>'Are you sure you want to delete this item?'),'icon'=>'trash'),
+	array('label'=>'Gerir <?php echo $this->pluralize($this->modelClass); ?>','url'=>array('admin'),'icon'=>'cog'),
 );
 ?>
 
-<h1>View <?php echo $this->modelClass." #<?php echo \$model->{$this->tableSchema->primaryKey}; ?>"; ?></h1>
+<h1>Visualizar <?php echo $this->modelClass." #<?php echo \$model->{$this->tableSchema->primaryKey}; ?>"; ?></h1>
 
 <?php echo "<?php"; ?> $this->widget('bootstrap.widgets.TbDetailView',array(
 	'data'=>$model,

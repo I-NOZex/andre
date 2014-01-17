@@ -30,7 +30,7 @@
         $this->renderPartial('//layouts/menu_uploader');
     }?>
 	<!-- mainmenu -->
-	<div class="container-fluid no_padding" style="margin-top:80px">
+	<div class="container-fluid no_padding" style="margin-top:65px">
 		<?php if (isset($this->breadcrumbs)): ?>
 			<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
 			'links' => $this->breadcrumbs,

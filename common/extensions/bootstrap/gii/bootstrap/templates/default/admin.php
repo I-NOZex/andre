@@ -14,8 +14,8 @@ echo "\$this->breadcrumbs=array(
 ?>
 
 $this->menu=array(
-	array('label'=>'List <?php echo $this->modelClass; ?>','url'=>array('index')),
-	array('label'=>'Create <?php echo $this->modelClass; ?>','url'=>array('create')),
+	array('label'=>'Listar <?php echo $this->pluralize($this->modelClass); ?>','url'=>array('index'),'icon'=>'list'),
+	array('label'=>'Nova <?php echo $this->modelClass; ?>','url'=>array('create'),'icon'=>'plus'),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -32,14 +32,15 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage <?php echo $this->pluralize($this->class2name($this->modelClass)); ?></h1>
+<h1>Gerir <?php echo $this->pluralize($this->class2name($this->modelClass)); ?></h1>
 
 <p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+<?php echo "<?php echo Yii::t('app','Pode opcionalmente usar operadores de comparação ({operators}
+ou {equal}) no início de cada um dos valores de pesquisa para especificar como a comparação deve ser feita.',
+array('{operators}'=>'<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>','{equal}'=>'<b>=</b>')); ?>"; ?>
 </p>
 
-<?php echo "<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>"; ?>
+<?php echo "<?php echo CHtml::link(Yii::t('app','Pesquisa Avançada'),'#',array('class'=>'search-button btn')); ?>"; ?>
 
 <div class="search-form" style="display:none">
 <?php echo "<?php \$this->renderPartial('_search',array(
