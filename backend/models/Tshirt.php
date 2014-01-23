@@ -31,10 +31,12 @@ class Tshirt extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, Nome, Preco, DataEntrada', 'required'),
-			array('ID', 'numerical', 'integerOnly'=>true),
-			array('Nome', 'length', 'max'=>50),
+			array('Nome, Preco, DataEntrada', 'required'),
+			array('Preco', 'numerical'),
 			array('Preco', 'length', 'max'=>19),
+			array('Preco', 'length', 'max'=>19),
+			array('Nome', 'length', 'max'=>50),
+            array('DataEntrada', 'date', 'format'=>'dd-mm-yyyy'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('ID, Nome, Preco, DataEntrada', 'safe', 'on'=>'search'),
@@ -49,7 +51,7 @@ class Tshirt extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'imagemtshirts' => array(self::HAS_MANY, 'Imagemtshirt', 'IDTShirt'),
+			'imagem' => array(self::HAS_MANY, 'Imagemtshirt', 'IDTShirt'),
 			'linhaencomendas' => array(self::HAS_MANY, 'Linhaencomenda', 'IDTShirt'),
 		);
 	}
@@ -62,8 +64,8 @@ class Tshirt extends CActiveRecord
 		return array(
 			'ID' => 'ID',
 			'Nome' => 'Nome',
-			'Preco' => 'Preco',
-			'DataEntrada' => 'Data Entrada',
+			'Preco' => 'Preço',
+			'DataEntrada' => 'Data de Entrada',
 		);
 	}
 
@@ -105,4 +107,14 @@ class Tshirt extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function lastID(){
+        $record=self::model()->find(array(
+                //'condition' => 'id<:current_id AND pubstatus=:approved',
+                'order' => 'ID DESC',
+                'limit' => 1,
+                //'params'=>array(':current_id'=>$id,':approved'=>Music::STATUS_APPROVED),
+        ));
+        return($record!==null ? $record->ID : 0);
+    }
 }

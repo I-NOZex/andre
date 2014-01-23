@@ -24,3 +24,6 @@ $this->menu=array(
 		'DataEntrada',
 	),
 )); ?>
+
+<?php foreach($model->imagem as $img)
+echo '<img src="'.Yii::app()->baseUrl.'/../../uploads/'.$img->Path.'"/>'; ?>

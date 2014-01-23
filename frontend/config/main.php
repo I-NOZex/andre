@@ -23,7 +23,7 @@ return CMap::mergeArray(
 		// @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
 		'language' => 'en',
 		// uncomment if a theme is used
-		/*'theme' => '',*/
+		'theme' => 'funnyshirt',
 		// setup import paths aliases
 		// @see http://www.yiiframework.com/doc/api/1.1/YiiBase#import-detail
 		'import' => array(

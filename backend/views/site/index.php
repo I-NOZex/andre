@@ -69,7 +69,6 @@
         echo '</div>';
         $this->endWidget();
     ?></div>
-
     <div class="span6">
     <div class="title"><h3 class="no_margin">Administração</h3></div>
     <?php

@@ -250,6 +250,7 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .nav-list > li > a.active, .nav-list > li > a.active:hover {background-color: #0088CC; color: #FFFFFF; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);}
 .nav .avatar {height: 30px;margin-right: 0;padding: 5px;width: 30px !important;}
 .title{display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;line-height:40px;color:#333;border:0;border-bottom:1px solid #e5e5e5}
+.files .name > span {display: inline-block;max-width: 150px;word-wrap: break-word;}
 .ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;-ms-text-overflow:ellipsis;-moz-binding:url(ellipsis.xml#ellipsis);display:inline-block;max-width:274px;vertical-align:top;}
 .label a { color: #A9DDF2; }
 .label a:hover { color: #87CEEB; }
@@ -260,6 +261,7 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 /*.items [class*="span6"]:nth-child(4n+1){ margin-left: 0; }*/
 .items [class*="span12"]:nth-child(1n){ margin-left: 0; }
 .items.table th, .items.table td{ vertical-align: middle; }
+.datepicker.dropdown-menu{ background-color: #fff; }
 #footer { margin-bottom: 20px;/*position: absolute; bottom: 20px; width: calc(100% - 40px);*/ }
 .text-blink{animation:blinkColor 3s infinite}
 @keyframes blinkColor{ 0%{color:#999} 50%{color:#f89406} 100%{color:#999} }

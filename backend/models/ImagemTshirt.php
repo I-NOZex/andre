@@ -14,6 +14,14 @@
  */
 class ImagemTshirt extends CActiveRecord
 {
+
+    const IMG_THUMBNAIL = 'thumb';
+    /**
+    * This is the attribute holding the uploaded picture
+    * @var CUploadedFile
+    */
+    public $picture = array();
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -30,9 +38,11 @@ class ImagemTshirt extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, IDTShirt, Path', 'required'),
-			array('ID, IDTShirt, TipoImagem', 'numerical', 'integerOnly'=>true),
-			array('Path', 'length', 'max'=>256),
+			array('Path', 'required'),
+			array('TipoImagem', 'numerical', 'integerOnly'=>true),
+			//array('Path', 'length', 'max'=>256),
+            array('picture', 'length', 'max' => 255, 'tooLong' => '{attribute} is too long (max {max} chars).', 'on' => 'upload'),
+            array('picture', 'file', 'types' => 'jpg,jpeg,gif,png', 'maxSize' => 1024 * 1024 * 2, 'tooLarge' => 'Size should be less then 2MB !!!', 'on' => 'upload'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('ID, IDTShirt, TipoImagem, Path', 'safe', 'on'=>'search'),
@@ -101,5 +111,20 @@ class ImagemTshirt extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	protected function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+
+			if($this->isNewRecord){
+				$this->IDTShirt = Tshirt::model()->lastId()+1;
+            }
+
+			return true;
+		}
+		else
+			return false;
 	}
 }
