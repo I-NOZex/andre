@@ -61,8 +61,10 @@ class TshirtController extends Controller
 	 */
 	public function actionNew()
 	{
-		$model=new Tshirt;
 
+		$model=new Tshirt;
+        //$post=Post::model()->findByPk(10); // assumindo que há um post com ID 10
+        //$post->delete(); // exclui o registro da tabela no banco de dados.
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -72,6 +74,16 @@ class TshirtController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->ID));
 		}
+
+        $images = ImagemTshirt::model()->findAll('IDTShirt = :id',array(':id'=>Tshirt::model()->lastId()+1));
+        //die(var_dump($images));
+        foreach ($images as $img) {
+          if (!empty($img->Path)) {
+                    $img->delete();
+            	    unlink('uploads/'.$img->Path);
+            	    unlink('uploads/'.$img->Path.'_thumb');
+          }
+        }
 
 		$this->render('create',array(
 			'model'=>$model,

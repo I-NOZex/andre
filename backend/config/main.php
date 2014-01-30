@@ -48,6 +48,7 @@ return CMap::mergeArray(
 			)
 		), */
 		'components' => array(
+        
 			'user' => array(
 				'allowAutoLogin'=>true,
 			),

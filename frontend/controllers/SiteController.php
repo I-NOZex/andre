@@ -12,11 +12,11 @@ class SiteController extends Controller {
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-    
+
 	public function accessRules() {
 		return array(
 			// not logged in users should be able to login and view captcha images as well as errors
-			array('allow', 'actions' => array('index', 'captcha', 'login', 'error', 'KK')),
+			array('allow', 'actions' => array('index', 'captcha', 'login', 'error', 'view')),
 			// logged in users can do whatever they want to
 			array('allow', 'users' => array('@')),
 			// not logged in users can't do anything except above
@@ -40,7 +40,27 @@ class SiteController extends Controller {
 
 	/* open on startup */
 	public function actionIndex() {
-		$this->render('index');
+        $criteria = new CDbCriteria();
+        //your criterias to get your data
+
+        $dataProvider = new CActiveDataProvider('Tshirt',
+                        array(
+                                'criteria'  => $criteria,
+                        )
+                    );
+
+		$this->render('index',array('dataProvider'=>$dataProvider));
+	}
+
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
 	}
 
 	/**
@@ -53,6 +73,19 @@ class SiteController extends Controller {
 			else
 				$this->render('error', $error);
 		}
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadModel($id)
+	{
+		$model=Tshirt::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
 	}
 
 	/**

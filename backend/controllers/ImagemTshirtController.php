@@ -15,6 +15,7 @@ class ImagemTshirtController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -27,7 +28,7 @@ class ImagemTshirtController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('upload','upload2'),
+				'actions'=>array('upload','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -36,7 +37,7 @@ class ImagemTshirtController extends Controller
 		);
 	}
 
-	public function actionUpload2(){
+	public function actionUpload(){
         header('Vary: Accept');
         if (isset($_SERVER['HTTP_ACCEPT']) &&
             (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false))
@@ -46,7 +47,7 @@ class ImagemTshirtController extends Controller
             header('Content-type: text/plain');
         }
         $data = array();
-
+        $this->init( );
         $model = new ImagemTshirt('upload');
         $model->picture = CUploadedFile::getInstance($model, 'Path');
         //die(var_dump($model->picture));
@@ -55,6 +56,9 @@ class ImagemTshirtController extends Controller
             $model->picture->saveAs(
             'uploads/'.$model->picture->name);
             $model->Path = $model->picture->name;
+            $model->TipoImagem = Yii::app()->request->getPost('tipo', '');
+            //die(var_dump($_REQUEST));
+            $model->IDTShirt = Yii::app()->request->getPost('Tid', '');
             // save picture name
 
             if( $model->save())
@@ -64,18 +68,24 @@ class ImagemTshirtController extends Controller
                     'name' => $model->picture->name,
                     'type' => $model->picture->type,
                     'size' => $model->picture->size,
+                    'tipo' => Yii::app()->request->getPost('tipo', ''),
                     // we need to return the place where our image has been saved
-                    //'url' => $model->getImageUrl(), // Should we add a helper method?
+                    'url' => $model->getImageUrl(), // Should we add a helper method?
                     // we need to provide a thumbnail url to display on the list
                     // after upload. Again, the helper method now getting thumbnail.
-                    //'thumbnail_url' => $model->getImageUrl(ImagemTshirt::IMG_THUMBNAIL),
+                    'thumbnail_url' => $model->getImageUrl(true),
                     // we need to include the action that is going to delete the picture
                     // if we want to after loading
                     'delete_url' => $this->createUrl('ImagemTshirt/delete',
                         array('id' => $model->ID, 'method' => 'uploader')),
                     'delete_type' => 'POST');
             } else {
-                $data[] = array('error' => 'Unable to save model after saving picture');
+                if(Yii::app()->request->getPost('tipo', '') == "null"){
+                    unlink('uploads/'.$model->Path);
+                    $data[] = array('error' => 'Tem de Especificar um tipo, tente de novo!');
+                }else{
+                    $data[] = array('error' => 'Unable to save model after saving picture');
+                }
             }
         } else {
             if ($model->hasErrors('picture'))
@@ -89,8 +99,37 @@ class ImagemTshirtController extends Controller
         echo json_encode($data);
     }
 
-    public function actionUpload(){
-        $this->render('upload');
-    }
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+	    $model = $this->loadModel($id);
+		if ($this->loadModel($id)->delete()){
+    	    unlink('uploads/'.$model->Path);
+    	    unlink('uploads/'.$model->Path.'_thumb');
+		}
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : Yii::app()->request->getUrlReferrer(true));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return ImagemTshirt the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=ImagemTshirt::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
 
 }

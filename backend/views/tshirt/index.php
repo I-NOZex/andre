@@ -14,7 +14,7 @@ $this->menu=array(
 <?php $this->widget('bootstrap.widgets.TbListView',array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
-    
+
     'beforeAjaxUpdate' => 'function(){
       $(".list-view").prepend(\'<div class="loading_overlay"></div>\');}',
 

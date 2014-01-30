@@ -17,6 +17,12 @@
     .row.full {
         max-width: 100%;
     }
+    [class*="column"] + [class*="column"]:last-child {
+        float: left;
+    }
+    [data-clearing] li {
+        margin-bottom: 10px;
+    }
     /*]]>*/
     </style>
   </head>
@@ -35,7 +41,7 @@
               <li class="name">
                 <h1>
                   <a href="#">
-                    Top Bar Title
+                    <?php echo CHtml::encode(Yii::app()->name);?>
                   </a>
                 </h1>
               </li>
@@ -47,42 +53,32 @@
               <ul class="right">
                 <li class="divider"></li>
                 <li class="has-dropdown">
-                  <a href="#">Main Item 1</a>
+                  <a href="#">Produtos</a>
                   <ul class="dropdown">
-                    <li><label>Section Name</label></li>
-                    <li class="has-dropdown">
-                      <a href="#" class="">Has Dropdown, Level 1</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Dropdown Options</a></li>
-                        <li><a href="#">Dropdown Options</a></li>
-                        <li><a href="#">Level 2</a></li>
-                        <li><a href="#">Subdropdown Option</a></li>
-                        <li><a href="#">Subdropdown Option</a></li>
-                        <li><a href="#">Subdropdown Option</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
+                    <li><label>T-shirts</label></li>
+                    <li><a href="#">Modelo A</a></li>
+                    <li><a href="#">Modelo B</a></li>
+                    <li><a href="#">Modelo C</a></li>
+                    <li><a href="#">Modelo D</a></li>
                     <li class="divider"></li>
-                    <li><label>Section Name</label></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
+                    <li><label>Camisolas</label></li>
+                    <li><a href="#">Modelo A</a></li>
+                    <li><a href="#">Modelo B</a></li>
+                    <li><a href="#">Modelo C</a></li>
+                    <li><a href="#">Modelo D</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">See all →</a></li>
+                    <li><a href="#">Todos Produtos →</a></li>
                   </ul>
                 </li>
                 <li class="divider"></li>
                 <li><a href="#">Main Item 2</a></li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
-                  <a href="#">Main Item 3</a>
+                  <a href="#">Utilizador</a>
                   <ul class="dropdown">
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">See all →</a></li>
+                    <li><a href="#">Iniciar Sessão</a></li>
+                    <li><a href="#">Registar</a></li>
+                    <li><a href="#">Recuperar Password</a></li>
                   </ul>
                 </li>
               </ul>
@@ -95,39 +91,8 @@
     <!-- End Navigation -->
 
       <div class="row top">
-
-
-
-     <?php echo $content; ?>
-
-
-
-    <!-- Managed By -->
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="panel">
-                <div class="row">
-
-                  <div class="large-2 small-6 columns">
-                    <img src="http://placehold.it/300x300&text=Site Owner">
-                  </div>
-
-                  <div class="large-10 small-6 columns">
-                    <strong>This Site Is Managed By<hr/></strong>
-
-                    Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-    <!-- End Managed By -->
-
-          </div>
-        </div>
+        <?php echo $content; ?>
       </div>
-
 
     <!-- Footer -->
 

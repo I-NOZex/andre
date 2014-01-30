@@ -161,7 +161,7 @@ class Yum
 	 */
 	public static function requiredFieldNote()
 	{
-		return CHtml::tag('p',array('class'=>'note'),Yum::t(
+		return CHtml::tag('p',array('class'=>'no_margin'),Yum::t(
 					'Fields with <span class="required">*</span> are required.'
 					),true);		
 	}

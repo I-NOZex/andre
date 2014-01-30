@@ -6,7 +6,7 @@ $columns = YumProfile::getProfileFields();
 			'id'=>'profiles-grid',
 			'dataProvider'=>$dataProvider,
 			'filter'=>null,
-			'columns'=>$columns
+			'columns'=> array_merge($columns,array('class'=>'bootstrap.widgets.TbButtonColumn'))
 			)
 );
  ?>

@@ -11,7 +11,10 @@
 </div>
 
 	<?php echo $form->errorSummary($model); ?>
-
+     <?php //die(var_dump($model->ID).'<HR>'.var_dump(Tshirt::model()->lastId()+1));?>
+	<?php echo ($model->isNewRecord) ? CHtml::hiddenField('Tid' , $model->ID, array('id' => 'Tid'))
+                                     : CHtml::hiddenField('Tid' , Tshirt::model()->lastId()+1, array('id' => 'Tid')); ?>
+                                                                         
 	<?php echo $form->textFieldRow($model,'Nome',array('class'=>'span5','maxlength'=>50)); ?>
 
 	<?php echo $form->textFieldRow($model,'Preco',array('maxlength'=>19, 'append'=>'<b>€</b>', 'class'=>'right')); ?>
@@ -19,49 +22,27 @@
     <?php echo $form->datepickerRow($model, 'DataEntrada', array(
                 'options' => array(
                         'language' => 'pt',
-                        'format' => 'dd-mm-yyyy'
+                        'format' => 'dd-mm-yyyy',
+                        'weekStart' => '1'
                     ),
                 'prepend' => '<i class="icon-calendar"></i>',
+                'value' => Yii::app()->dateFormatter->format('dd-MM-yyyy',time()),
                 )
             ); ?>
-
+    <div class="controls">
     <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-    'label' => 'Adicionar Imagens',
-    'type' => 'primary',
+    'label' => 'Adicionar Imagens...',
+    'type' => 'info',
+    'icon' => 'upload white',
     'htmlOptions' => array(
     'data-toggle' => 'modal',
     'data-target' => '#myModal',
     ),
     )
     );?>
-    <?php
-    /*$picture = new ImagemTshirt;
-    $this->widget('bootstrap.widgets.TbFileUpload', array(
-            'url' => $this->createUrl('ImagemTshirt/upload'),
-            //'imageProcessing' => false,
-            'model' => $picture,
-            'attribute' => 'Path',
-            'multiple' => true,
-            'options' => array(
-                'maxFileSize' => 2000000,
-                'acceptFileTypes' => 'js:/(\.|\/)(gif|jpe?g|png)$/i',
-            )
-            /*'callbacks' => array(
-                    'done' => new CJavaScriptExpression(
-                        'function(e, data) { alert(\'done!\'); }'
-                    ),
-                    'fail' => new CJavaScriptExpression(
-                        'function(e, data) { alert(\'fail!\'); }'
-                    ),
-            ),
-        )
-    );*/
-    ?>
-
-
-
+    </div>
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
@@ -84,24 +65,33 @@
     <div class="modal-body">
 <?php
     $picture = new ImagemTshirt('upload');
+    //$data = !$model->isNewRecord ? "{Tid: ".$model->ID."}" : "{Tid: ".(Tshirt::model()->lastId()+1)."}";
+    $data = !$model->isNewRecord ? $model->ID : Tshirt::model()->lastId()+1;
     $this->widget('bootstrap.widgets.TbFileUpload', array(
-            'url' => $this->createUrl('ImagemTshirt/upload2'),
+            'url' => $this->createUrl('ImagemTshirt/upload'),
             //'imageProcessing' => false,
             'model' => $picture,
             'attribute' => 'Path',
             'multiple' => true,
+            //Our custom upload template
+            'uploadView' => 'backend.views.imagemTshirt.upload',
+            //our custom download template
+            'downloadView' => 'backend.views.imagemTshirt.download',
             'options' => array(
+                //'formData' => $data,
                 'maxFileSize' => 2000000,
                 'acceptFileTypes' => 'js:/(\.|\/)(gif|jpe?g|png)$/i',
                 'locale' => array('fileupload'=> array('start'=>'Iniciar','cancel'=>'Cancelar','delete'=>'Apagar')),
-                'callbacks' => array(
-                        'done' => new CJavaScriptExpression(
-                            'function(e, data) { alert(\'done!\'); }'
-                        ),
-                        'fail' => new CJavaScriptExpression(
-                            'function(e, data) { alert(\'fail!\'); }'
-                        ),
-                ),
+                //Additional javascript options
+                //This is the submit callback that will gather
+                //the additional data  corresponding to the current file
+                'submit' => "js:function (e, data) {
+                    var inputs = data.context.find(':input');
+                    data.formData = inputs.serializeArray();
+                    data.formData.push({name:'Tid', value:'".$data."'});
+                    console.log(data.formData);
+                    return true;
+                }"
             ),
         )
     );

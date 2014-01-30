@@ -11,5 +11,10 @@ C:\Programaxao\EasyPHP\data\localweb\andre\backend\views\site\index.php
 C:\Programaxao\EasyPHP\data\localweb\andre\backend\views\layouts\column2.php
 C:\Programaxao\EasyPHP\data\localweb\andre\backend\views\layouts\column1.php
 C:\Programaxao\EasyPHP\data\localweb\andre\backend\www\themes\bootstrap\views\layouts\main.php
-C:\Programaxao\EasyPHP\data\localweb\andre\frontend\www\themes\funnyshirt\views\layouts\main.php
-C:\Programaxao\EasyPHP\data\localweb\andre\frontend\config\main.php
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\views\tshirt\_form.php
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\controllers\ImagemTshirtController.php
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\models\ImagemTshirt.php
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\views\tshirt\_img.php
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\views\tshirt\view.php
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\www\css\screen.css
+C:\Programaxao\EasyPHP\data\localweb\andre\backend\models\Tshirt.php

@@ -1,38 +1,39 @@
-<?php
-/* @var $this ImagemTshirtController */
-
-$this->breadcrumbs=array(
-	'Imagem Tshirt'=>array('/imagemTshirt'),
-	'Upload',
-);
-?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
-
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
-<?php
-    $picture = new ImagemTshirt('upload');
-    $this->widget('bootstrap.widgets.TbFileUpload', array(
-            'url' => $this->createUrl('ImagemTshirt/upload2'),
-            //'imageProcessing' => false,
-            'model' => $picture,
-            'attribute' => 'Path',
-            'multiple' => true,
-            'options' => array(
-                'maxFileSize' => 2000000,
-                'acceptFileTypes' => 'js:/(\.|\/)(gif|jpe?g|png)$/i',
-            ),
-            'htmlOptions' => array('class'=>'a')
-            /*'callbacks' => array(
-                    'done' => new CJavaScriptExpression(
-                        'function(e, data) { alert(\'done!\'); }'
-                    ),
-                    'fail' => new CJavaScriptExpression(
-                        'function(e, data) { alert(\'fail!\'); }'
-                    ),
-            ),*/
-        )
-    );
-    ?>
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td class="preview"><span class="fade"></span></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td><!--This is the new column, and below we add 2 new fields-->
+            <select name="tipo" size="1" required style="width: 80px">
+            <option value="null" selected="selected">Tipo &darr;</option>
+            <option value="1">Verso</option>
+            <option value="2">Frente</option>
+            <option value="3">Outro</option>
+            </select><br />
+        </td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">{% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+            {% } %}</td>
+        {% } else { %}
+            <td colspan="2"></td>
+        {% } %}
+        <td class="cancel">{% if (!i) { %}
+            <button class="btn btn-warning">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>{%=locale.fileupload.cancel%}</span>
+            </button>
+        {% } %}</td>
+    </tr>
+{% } %}
+</script>

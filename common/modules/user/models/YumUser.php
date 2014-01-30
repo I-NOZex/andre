@@ -522,7 +522,7 @@ class YumUser extends YumActiveRecord
 		$profile->save(false);
 
 		if(Yum::hasModule('role'))
-			foreach(Yum::module('registration')->defaultHybridAuthRoles as $role) 
+			foreach(Yum::module('registration')->defaultHybridAuthRoles as $role)
 				Yii::app()->db->createCommand(sprintf(
 							'insert into %s (user_id, role_id) values(%s, %s)',
 							Yum::module('role')->userRoleTable,
@@ -532,7 +532,7 @@ class YumUser extends YumActiveRecord
 		return true;
 	}
 
-	// Registers a user 
+	// Registers a user
 	public function register($username = null,
 			$password = null,
 			$profile = null) {
@@ -749,6 +749,16 @@ class YumUser extends YumActiveRecord
 		Yii::import('common.modules.role.models.*');
 		$role = YumRole::model()->findByAttributes(array('title' => $roleTitle));
 		return $role ? $role->users : null;
+	}
+
+    public function getUsers()
+	{
+		$active_users=$this->findAll(array('select'=>'username','order'=>'username ASC',
+        'condition'=>'status = '.self::STATUS_ACTIVE.' AND id <> '.Yii::app()->user->getId()));
+		$users=array();
+		foreach($active_users as $user)
+			$users[]=array('id'=>$user->username,'text'=>$user->username);
+		return $users;
 	}
 
 	/**

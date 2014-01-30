@@ -1349,7 +1349,14 @@ meta.foundation-mq-topbar {
 
 @media only screen and (min-width: 40.063em) {
   .top-bar {
-    background: #333333;
+background: rgb(17,17,17);
+background: -moz-linear-gradient(left, rgba(17,17,17,1) 0%, rgba(51,51,51,1) 60%, rgba(51,51,51,1) 100%);
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(17,17,17,1)), color-stop(60%,rgba(51,51,51,1)), color-stop(100%,rgba(51,51,51,1)));
+background: -webkit-linear-gradient(left, rgba(17,17,17,1) 0%,rgba(51,51,51,1) 60%,rgba(51,51,51,1) 100%);
+background: -o-linear-gradient(left, rgba(17,17,17,1) 0%,rgba(51,51,51,1) 60%,rgba(51,51,51,1) 100%);
+background: -ms-linear-gradient(left, rgba(17,17,17,1) 0%,rgba(51,51,51,1) 60%,rgba(51,51,51,1) 100%);
+background: linear-gradient(to right, rgba(17,17,17,1) 0%,rgba(51,51,51,1) 60%,rgba(51,51,51,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111111', endColorstr='#333333',GradientType=1 );
     *zoom: 1;
     overflow: visible; }
     .top-bar:before, .top-bar:after {

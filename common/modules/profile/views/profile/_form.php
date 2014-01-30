@@ -6,12 +6,14 @@ if(Yum::module()->rteadapter != false)
 
 if($profile)
 	foreach(YumProfile::getProfileFields() as $field) {
-		echo CHtml::openTag('div',array());
+		echo CHtml::openTag('div',array('class'=>'control-group '));
 
-		echo CHtml::activeLabelEx($profile, $field);
-		echo CHtml::activeTextField($profile,
-				$field);
-		echo CHtml::error($profile,$field); 
+		echo CHtml::activeLabelEx($profile, $field,array('class'=>'control-label')); ?>
+        <div class="controls">
+		<?php echo CHtml::activeTextField($profile,
+				$field); ?>
+        </div>
+		<?php echo CHtml::error($profile,$field,array('class'=>'help-inline error'));
 
 		echo CHtml::closeTag('div');
 	}

@@ -250,7 +250,8 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .nav-list > li > a.active, .nav-list > li > a.active:hover {background-color: #0088CC; color: #FFFFFF; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);}
 .nav .avatar {height: 30px;margin-right: 0;padding: 5px;width: 30px !important;}
 .title{display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;line-height:40px;color:#333;border:0;border-bottom:1px solid #e5e5e5}
-.files .name > span {display: inline-block;max-width: 150px;word-wrap: break-word;}
+.files .name > span {display: inline-block;max-width: 75px;word-wrap: break-word;}
+.files .progress{width: 75px!important;}
 .ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;-ms-text-overflow:ellipsis;-moz-binding:url(ellipsis.xml#ellipsis);display:inline-block;max-width:274px;vertical-align:top;}
 .label a { color: #A9DDF2; }
 .label a:hover { color: #87CEEB; }

@@ -5,9 +5,8 @@ array('id' => 'horizontalForm',
 'type' => 'horizontal')
 );
 ?>
-<fieldset>
 
-    <legend><?php echo Yum::t('Create new user'); ?></legend>
+    <legend><?php echo $user->isNewRecord ? Yum::t('Create new user') : Yum::t('Update user'); ?></legend>
 
     <div class="well well-small"><?php echo Yum::requiredFieldNote(); ?></div>
 <?php
@@ -37,7 +36,7 @@ if($m->hasErrors())
 <?php $this->renderPartial('/user/passwordfields', array(
 			'form'=>$passwordform,'help'=>$user->isNewRecord ? 'generate a random Password' : 'keep it <em> unchanged </em>')); ?>
 
-<?php if(Yum::hasModule('role')) { 
+<?php if(Yum::hasModule('role')) {
 	Yii::import('common.modules.role.models.*');
 ?>
 <div class="control-group roles">
@@ -63,8 +62,6 @@ $this->renderPartial(Yum::module('profile')->profileFormView, array(
 </div>
 
 <div class="clearfix"></div>
-
-</fieldset>
 
 <div class="form-actions">
 <?php echo CHtml::submitButton($user->isNewRecord

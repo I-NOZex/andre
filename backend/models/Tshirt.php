@@ -90,7 +90,12 @@ class Tshirt extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('Nome',$this->Nome,true);
 		$criteria->compare('Preco',$this->Preco,true);
+        //die(var_dump(Yii::app()->dateFormatter->format('yyyy-MM-dd H:i:s',$this->DataEntrada)));
+        if(!empty($this->DataEntrada))
+	        $criteria->compare('DataEntrada',Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss',$this->DataEntrada),true);
+        else
 		$criteria->compare('DataEntrada',$this->DataEntrada,true);
+        //die(var_dump(Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss',$this->DataEntrada)));
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -106,6 +111,19 @@ class Tshirt extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	protected function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+
+		    $this->DataEntrada = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss',$this->DataEntrada);
+
+			return true;
+		}
+		else
+			return false;
 	}
 
     public static function lastID(){

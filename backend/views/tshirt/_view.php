@@ -1,4 +1,11 @@
 <div class="view well well-small">
+<?php
+$img = ImagemTshirt::model()->find('IDTShirt = :id OR (IDTShirt = :id AND TipoImagem = :ti)',array(':id'=>$data->ID,':ti'=>2));
+if (!empty($img)): ?>
+    <div class="pull-left" style="margin-right: 10px; width: 80px;">
+        <?php echo CHtml::image(CHtml::encode(Yii::app()->baseUrl.'/../../uploads/'.$img->Path.'_thumb') ,'tshirt');?>
+    </div>
+<?php endif; ?>
 
 	<div style="display: inline-block; max-width: 90%;">
         	<b><?php echo CHtml::encode($data->getAttributeLabel('ID')); ?>:</b>
@@ -10,11 +17,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Preco')); ?>:</b>
-	<?php echo CHtml::encode($data->Preco); ?>
+	<?php echo CHtml::encode($data->Preco.'€'); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('DataEntrada')); ?>:</b>
-	<?php echo CHtml::encode($data->DataEntrada); ?>
+	<?php echo CHtml::encode(Yii::app()->dateFormatter->format('dd-MM-yyyy',$data->DataEntrada)); ?>
 	<br />
 
 	</div> 
