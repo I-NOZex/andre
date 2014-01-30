@@ -12,7 +12,8 @@ class SiteController extends Controller {
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $img='http://placehold.it/500x500&text=Logo';
+	//public $img='http://placehold.it/500x500&text=Logo';
+	public $img = array();
 	public $detail=array(
         'Bem Vindo!',
         'Funny<em>Shirt</em> é o seu site online de compra de T-Shirts personalizadas.<br />
