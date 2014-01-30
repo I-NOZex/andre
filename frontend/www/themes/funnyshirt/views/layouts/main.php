@@ -23,6 +23,17 @@
     [data-clearing] li {
         margin-bottom: 10px;
     }
+    .row.top .clearing-featured-img {
+        margin: 0;
+    }
+    .row.top .clearing-featured-img img {
+        width: 100%;
+    }
+    .clearing-featured-img span.button.tiny {
+        position: absolute;
+        right: 12px;
+        top: 278px;
+    }
     /*]]>*/
     </style>
   </head>
@@ -74,7 +85,7 @@
                 <li><a href="#">Main Item 2</a></li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
-                  <a href="#">Utilizador</a>
+                  <a href="#">Área de Cliente</a>
                   <ul class="dropdown">
                     <li><a href="#">Iniciar Sessão</a></li>
                     <li><a href="#">Registar</a></li>

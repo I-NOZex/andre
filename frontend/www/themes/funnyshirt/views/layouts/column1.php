@@ -6,5 +6,6 @@
             )); ?>
        </div><!-- breadcrumbs -->
     <?php endif ?>
+    
     <?php echo $content; ?>
 <?php $this->endContent(); ?>
