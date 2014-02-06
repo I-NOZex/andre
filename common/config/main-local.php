@@ -43,7 +43,7 @@ return array(
 	        'adminLayout' => 'common.modules.user.views.layouts.yum',
             'enableBootstrap' => false,
             //'afterLogin' => 'canBackendLogin',
-            //'captchaAfterUnsuccessfulLogins' => 0
+            //'captchaAfterUnsuccessfulLogins' => 0 
           ),
           /*'usergroup' => array(
             'class' => 'common.modules.usergroup.UsergroupModule',

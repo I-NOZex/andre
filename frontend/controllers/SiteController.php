@@ -13,19 +13,18 @@ class SiteController extends Controller {
 	 */
 	public $layout='//layouts/column2';
 	//public $img='http://placehold.it/500x500&text=Logo';
-	public $img = array();
+	public $img;
 	public $detail=array(
-        'Bem Vindo!',
-        'Funny<em>Shirt</em> é o seu site online de compra de T-Shirts personalizadas.<br />
-        Boas Compras!'
+        "Bem Vindo!",
+        "Funny<em>shirt</em> é o seu site online de compra de T-Shirts personalizadas.<br />Boas Compras!"
     );
 
 	public function accessRules() {
 		return array(
 			// not logged in users should be able to login and view captcha images as well as errors
-			array('allow', 'actions' => array('index', 'captcha', 'login', 'error', 'view')),
+			array('allow', 'actions' => array('index', 'captcha', 'login', 'error', 'view','carrinho','removerArtigo','AtualizarArtigo')),
 			// logged in users can do whatever they want to
-			array('allow', 'users' => array('@')),
+			array('allow', 'users' => array('CheckOut')),
 			// not logged in users can't do anything except above
 			array('deny'),
 		);
@@ -65,8 +64,18 @@ class SiteController extends Controller {
 	 */
 	public function actionView($id)
 	{
+	    $model = $this->loadModel($id);
+        $errors = false;
+        if(isset($_POST['CartValidator'])){
+            $errors = $this->validate($id,$model);
+            if(!$errors){
+                Yii::app()->shoppingCart->put($model,$_POST['CartValidator']['quantidade']);
+                Yii::app()->session["tamanho[".$id."]"] = $_POST['CartValidator']['tamanho'];
+            }
+        }
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+            'errors'=>$errors
 		));
 	}
 
@@ -81,6 +90,87 @@ class SiteController extends Controller {
 				$this->render('error', $error);
 		}
 	}
+
+	public function actionCarrinho()
+    {
+        $errors = false;
+        if(isset($_POST['CartValidator']))
+            $errors = $this->validate($id,$model);
+		$this->render('carrinho',array('errors'=>$errors));
+	}
+
+	public function actionRemoverArtigo($id)
+	{
+	    $tshirt = $this->loadModel($id);
+		Yii::app()->shoppingCart->remove($tshirt->getId());
+        unset(Yii::app()->session["tamanho[".$id."]"]);
+        $this->redirect(Yii::app()->createUrl('/site/carrinho'));
+	}
+
+	public function actionAtualizarArtigo($id)
+	{
+	    //die(var_dump($_POST['quantidade']));
+        if(isset($_POST['quantidade'])){
+            $model = $this->loadModel($id);
+            $rules = array(
+                array('quantidade', 'required'),
+                array('quantidade', 'numerical',
+                        'integerOnly'=>true,
+                        'min'=>1,
+                        'tooSmall'=>'Deve adicionar pelo menos 1 artigo!'),
+                );
+            $errors = $this->validate($id,$model,$rules);
+            if(!$errors){
+                Yii::app()->shoppingCart->update($model,$_POST['quantidade']);
+            }
+        }
+        $this->redirect(Yii::app()->createUrl('/site/carrinho'));
+	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCheckOut()
+	{
+		$model=new Encomenda;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Encomenda']))
+		{
+			$model->attributes=$_POST['Encomenda'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->IDEncomenda));
+		}
+
+		$this->render('checkout',array(
+			'model'=>$model,
+		));
+	}
+
+    public function validate($id,$model,$rules = false){
+	    $errors = false;
+		if(isset($_POST['CartValidator']))
+		{
+            if ($rules == false){
+            $rules = array(
+                array('quantidade, tamanho', 'required'),
+                array('tamanho','in','range'=>array('xs','s','m','l','xl','xxl','xxxl'),'allowEmpty'=>false),
+                array('quantidade', 'numerical',
+                        'integerOnly'=>true,
+                        'min'=>1,
+                        'tooSmall'=>'Deve adicionar pelo menos 1 artigo!'),
+                );
+            }
+
+            //die(var_dump($_POST));
+            $errors = CartValidator::validateValues($rules);
+
+        }
+        return $errors;
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

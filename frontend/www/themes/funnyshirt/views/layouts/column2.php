@@ -1,16 +1,38 @@
 <?php $this->beginContent('//layouts/main'); ?>
+    <div class="columns">
+    <?php if(!empty($this->breadcrumbs)):?>
+       <div class="box-body post-body round_corner">
+            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+                    'links'=>$this->breadcrumbs,
+                    'separator'=>'',
+                    'inactiveLinkTemplate'=>'<li class="current"><a href="#">{label}</a></li>',
+            )); ?>
+       </div><!-- breadcrumbs -->
+    <?php endif ?>
+    </div>
       <!-- Side Bar -->
-
-            <div class="large-3 medium-2 small-12 columns">
+            <div class="large-3 medium-3 small-12 columns">
             <?php if (!empty($this->img)): ?>
                 <ul class="clearing-thumbs clearing-feature" data-clearing>
-                <?php //foreach ($this->img as $value): ?>
-                <?php //var_dump($field);?>=>
-                <?php //var_dump($value);?><hr />
-        	        <li class="clearing-featured-img"><a href="http://placehold.it/500x500&text=Logo"><span class="button tiny">Mais Imagens +</span><img data-caption="caption here..." src="<?php echo $this->img; ?>"></a></li>
-        	        <li><a href="http://placehold.it/200x200&text=[img]"><img data-caption="caption here..." src="http://placehold.it/100x100&text=[img]"></a></li>
-        	        <li><a href="http://placehold.it/200x200&text=[img]"><img data-caption="caption here..." src="http://placehold.it/100x100&text=[img]"></a></li>
-                <?php //endforeach; ?>
+                <?php //die(var_dump($this->img)); ?>
+                <?php foreach ($this->img as $field => $value): ?>
+                    <?php if($field=="featured"):?>
+            	        <li class="clearing-featured-img">
+                            <a href="<?php echo $value; ?>">
+                                <div>
+                                <img src="<?php echo $value; ?>">
+                                <span class="button tiny">Mais Imagens +</span>
+                                </div>
+                            </a>
+                        </li>
+                    <?php else: ?>
+        	            <li>
+                            <a href="<?php echo $value; ?>">
+                                <img src="<?php echo $value; ?>_thumb">
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
                 </ul>
            <?php else: ?>
                 <img src="http://placehold.it/500x500&text=Logo"/>
@@ -20,23 +42,19 @@
                 <h3><?php echo $this->detail[0]; ?></h3>
                 <h6 class="subheader"><?php echo $this->detail[1]; ?></h6>
               </div>
-
-              <a href="#">
+              <a href="<?php echo Yii::app()->createUrl('site/carrinho')?>">
               <div class="panel callout radius">
-                <h6>99  items in your cart</h6>
+                <?php $items = Yii::app()->shoppingCart->getItemsCount(); ?>
+                <h6> <?php echo ($items == 0) ? "Sem itens no carrinho" :
+                            (($items > 1) ? "{$items} itens no seu carrinho" :
+                                "{$items} item no seu carrinho" ); ?>
+                </h6>
               </div>
               </a>
 
             </div>
 
         <!-- End Side Bar -->
-    <?php if(!empty($this->breadcrumbs)):?>
-       <div class="box-body post-body round_corner">
-            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                    'links'=>$this->breadcrumbs,
-            )); ?>
-       </div><!-- breadcrumbs -->
-    <?php endif ?>
         <!-- Thumbnails -->
             <?php echo $content; ?>
 		<!-- End Thumbnails -->

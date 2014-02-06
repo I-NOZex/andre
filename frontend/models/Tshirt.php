@@ -13,8 +13,9 @@
  * @property Imagemtshirt[] $imagemtshirts
  * @property Linhaencomenda[] $linhaencomendas
  */
-class Tshirt extends CActiveRecord
-{
+class Tshirt extends CActiveRecord implements IECartPosition {
+
+    //public $quantidade = 0;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -143,5 +144,12 @@ class Tshirt extends CActiveRecord
                 //'params'=>array(':current_id'=>$id,':approved'=>Music::STATUS_APPROVED),
         ));
         return($record!==null ? $record->ID : 0);
+    }
+    function getId(){
+        return 'Tshirt'.$this->ID;
+    }
+
+    function getPrice(){
+        return $this->Preco;
     }
 }

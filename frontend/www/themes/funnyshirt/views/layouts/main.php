@@ -30,9 +30,12 @@
         width: 100%;
     }
     .clearing-featured-img span.button.tiny {
-        position: absolute;
-        right: 12px;
-        top: 278px;
+        bottom: 8px;
+        display: inline;
+        position: relative;
+    }
+    .clearing-featured-img div {
+        text-align: right;
     }
     /*]]>*/
     </style>
@@ -51,8 +54,8 @@
               <!-- Title Area -->
               <li class="name">
                 <h1>
-                  <a href="#">
-                    <?php echo CHtml::encode(Yii::app()->name);?>
+                  <a href="<?php echo Yii::app()->homeUrl; ?>">
+                    <?php echo Yii::app()->name;?>
                   </a>
                 </h1>
               </li>
@@ -87,9 +90,15 @@
                 <li class="has-dropdown">
                   <a href="#">Área de Cliente</a>
                   <ul class="dropdown">
+                  <?php if (Yii::app()->user->isGuest): ?>
                     <li><a href="#">Iniciar Sessão</a></li>
                     <li><a href="#">Registar</a></li>
                     <li><a href="#">Recuperar Password</a></li>
+                  <?php else: ?>
+                    <li><a href="#">Conta</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Terminar Sessão</a></li>
+                  <?php endif; ?>
                   </ul>
                 </li>
               </ul>

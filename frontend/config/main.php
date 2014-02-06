@@ -17,6 +17,7 @@ return CMap::mergeArray(
 		// @see http://www.yiiframework.com/doc/api/1.1/CApplication#basePath-detail
 		'basePath' => 'frontend',
 		// set parameters
+		'name' => 'Funny<em>Shirt</em>',
 		// preload components required before running applications
 		// @see http://www.yiiframework.com/doc/api/1.1/CModule#preload-detail
 		'preload' => array('log'),
@@ -34,7 +35,8 @@ return CMap::mergeArray(
 			/* 'common.extensions.validators.*', */
 			'application.components.*',
 			'application.controllers.*',
-			'application.models.*'
+			'application.models.*',
+            'ext.yiiext.components.shoppingCart.*'
 		),
 		/* uncomment and set if required */
 		// @see http://www.yiiframework.com/doc/api/1.1/CModule#setModules-detail
@@ -51,7 +53,19 @@ return CMap::mergeArray(
 					'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 				)
 			),
+          'shoppingCart' =>
+            array(
+                'class' => 'ext.yiiext.components.shoppingCart.EShoppingCart',
+            ),
 		),
+    	'modules' => array(
+              'user' => array(
+    	        'baseLayout' => 'www.themes.funnyshirt.views.layouts.main',
+    	        'layout' => 'www.themes.funnyshirt.views.user.layouts.yum',
+    	        'loginLayout' => 'www.themes.funnyshirt.views.user.layouts.login',
+    	        'adminLayout' => 'www.themes.funnyshirt.views.user.layouts.yum',
+              ),
+        ),
 	),
 	(file_exists(__DIR__ . '/main-env.php') ? require(__DIR__ . '/main-env.php') : array()),
 	(file_exists(__DIR__ . '/main-local.php') ? require(__DIR__ . '/main-local.php') : array())
