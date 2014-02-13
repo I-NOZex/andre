@@ -60,6 +60,20 @@ abstract class YumController extends Controller {
 			$this->widget('YumUserMenu');
 	}
 
+    public function canBackendLogin(){
+//        var_dump(Yii::app()->user->can("backendLogin"));
+//        var_dump((bool)Yii::app()->user->isAdmin());
+
+
+if((bool)Yii::app()->user->isAdmin()==false){
+
+            if(Yii::app()->user->can("backendLogin")==false){  //die("here"); 
+                Yii::app()->request->cookies['flash'] = new CHttpCookie('flash', serialize(array('error','You are not allowed to access this area')));
+                $this->redirect(array('//user/auth/logout'));
+            }
+          }
+    }
+
 	public function filters()
 	{
 		return array(

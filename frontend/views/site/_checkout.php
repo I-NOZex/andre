@@ -3,10 +3,11 @@
 	'enableAjaxValidation'=>false,
     'htmlOptions'=>array('data-abide'=>'data-abide')
 )); ?>
-
 <fieldset>
-<legend>Confirmar Encomenda</legend>
-	<p class="help-block">Campos com <span class="required">*</span> são de preenchimento obrigatório.</p>
+<legend>Introduza os seguintes dados</legend>
+	<div class="panel radius">
+        <p class="help-block">Campos com <span class="required">*</span> são de preenchimento obrigatório.</p>
+    </div>
 
 	<?php echo $form->errorSummary($model); ?>
       <div class="row">
@@ -28,9 +29,6 @@
           <small class="error">Introduza um Endereço válido</small>
         </div>
       </div>
-
-	<div class="form-actions">
-		<button type="submit">Submit</button>
-	</div>
 </fieldset>
+<?php echo CHtml::submitButton('Confirmar',array('class'=>'button')); ?>
 <?php $this->endWidget(); ?>

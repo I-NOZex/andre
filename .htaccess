@@ -14,6 +14,8 @@ RewriteRule ^admin(/.*)?$ backend/www/index.php/$1 [L,NC]
 RewriteRule ^uploads(/.*)?$ uploads$1 [L,NC]
 #RewriteRule ^uploads(/.*)?$ backend/www/$1 [NC,L,R]
 
+RewriteRule ^images(/.*)?$ images$1 [L,NC]
+
 RewriteCond %{REQUEST_URI} !/(frontend|backend)/ [NC]
 #RewriteRule ^(.*)$ frontend/www/index.php$1 [L]
 RewriteRule ^(.*)?$ frontend/www/index.php/$1 [L,NC]

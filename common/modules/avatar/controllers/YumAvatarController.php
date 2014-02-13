@@ -66,14 +66,14 @@ class YumAvatarController extends YumController {
 				$model->setScenario('avatarSizeCheck');
 
 			$model->avatar = CUploadedFile::getInstanceByName('YumUser[avatar]');
-			if($model->validate()) {
+			if($model->validate(array('avatar'))) {
 				if ($model->avatar instanceof CUploadedFile) {
 
 					// Prepend the id of the user to avoid filename conflicts
 					$filename = Yum::module('avatar')->avatarPath .'/'.  $model->id . '_' . $_FILES['YumUser']['name']['avatar'];
 					$model->avatar->saveAs($filename);
 					$model->avatar = $filename;
-					if($model->save()) {
+					if($model->save(false)) {
 						Yum::setFlash(Yum::t('The image was uploaded successfully'));
 						Yum::log(Yum::t('User {username} uploaded avatar image {filename}', array(
 										'{username}' => $model->username,

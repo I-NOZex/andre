@@ -13,6 +13,9 @@ return array(
     				'generatorPaths' => array(
     					'bootstrap.gii'
     				)
-    			)
+    			),
+                'user' => array(
+                    'afterLogin' => 'canBackendLogin',
+                )
     ),
 );

@@ -34,11 +34,12 @@ class Encomenda extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('IDEncomenda, IDCliente, Data, Total, NumVisa, Endereco', 'required'),
+			array('NumVisa, Endereco', 'required'),
 			array('IDEncomenda, Entregue', 'numerical', 'integerOnly'=>true),
 			array('IDCliente', 'length', 'max'=>10),
 			array('Total', 'length', 'max'=>19),
 			array('NumVisa', 'length', 'max'=>16),
+			array('NumVisa', 'match', 'pattern'=> '/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/', 'allowEmpty'=>false),
 			array('Endereco', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -69,8 +70,8 @@ class Encomenda extends CActiveRecord
 			'IDCliente' => 'Idcliente',
 			'Data' => 'Data',
 			'Total' => 'Total',
-			'NumVisa' => 'Num Visa',
-			'Endereco' => 'Endereco',
+			'NumVisa' => 'Nº Cartão Visa',
+			'Endereco' => 'Endereço',
 			'Entregue' => 'Entregue',
 		);
 	}
@@ -106,6 +107,41 @@ class Encomenda extends CActiveRecord
 		));
 	}
 
+	protected function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+		    $this->IDCliente = Yii::app()->user->getId();
+		    $this->Data = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss',time());;
+		    $this->Total = Yii::app()->shoppingCart->getCost();
+		    $this->Entregue = 0;
+
+			return true;
+		}
+		else
+			return false;
+	}
+
+	protected function afterSave()
+	{
+            $positions = Yii::app()->shoppingCart->getPositions();
+            //die(var_dump($this->IDEncomenda));
+            foreach($positions as $position){
+                $detalhes = new LinhaEncomenda;
+                $detalhes->IDEncomenda = $this->IDEncomenda;
+                $detalhes->IDTShirt = $position->ID;
+                $detalhes->PrecoUn = $position->Preco;
+                $detalhes->Quantidade = $position->getQuantity();
+                $detalhes->Tamanho = strtoupper(Yii::app()->session["tamanho[".$position->ID."]"]);
+                if(!$detalhes->save(false))
+                    die(var_dump($detalhes->getErrors()));
+                else
+                    unset(Yii::app()->session["tamanho[".$position->ID."]"]);
+            }
+            Yii::app()->shoppingCart->clear();
+
+        parent::afterSave();
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

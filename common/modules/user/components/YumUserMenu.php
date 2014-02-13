@@ -34,10 +34,10 @@ class YumUserMenu extends TbMenu {
 					array('label' => Yum::t('Browse memberships'),'visible' => Yum::hasModule('membership'), 'url' => array('/membership/membership/order')),
 
 				array('label' => Yum::t('Messages'),'visible' => Yum::hasModule('message'),'itemOptions'=>array('class'=>'nav-header')),
-				    array('label' => Yum::t('My inbox').' <span class="badge badge-info well" style="vertical-align:text-top">'.
-                            YumMessage::model()->unread()->count().'</span>','url' => array('/message/message/index')),
-					array('label' => Yum::t('Sent messages'), 'url' => array('/message/message/sent')),
-                    array('label' => Yum::t('Write a message'), 'url' => array('/message/message/compose')),
+				    array('visible' =>Yum::hasModule('message'),'label' => Yum::t('My inbox').' <span class="badge badge-info well" style="vertical-align:text-top">'.
+                            /*YumMessage::model()->unread()->count().*/'</span>','url' => array('/message/message/index')),
+					array('visible' =>Yum::hasModule('message'),'label' => Yum::t('Sent messages'), 'url' => array('/message/message/sent')),
+                    array('visible' =>Yum::hasModule('message'),'label' => Yum::t('Write a message'), 'url' => array('/message/message/compose')),
 
 				array('label' => Yum::t('Social'), 'itemOptions'=>array('class'=>'nav-header')),
 				    array('label' => Yum::t('My friends'),'url' => array('/friendship/friendship/index'),'visible' => Yum::hasModule('friendship')),

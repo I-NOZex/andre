@@ -21,7 +21,7 @@ return CMap::mergeArray(
 		// @see http://www.yiiframework.com/doc/api/1.1/CModule#preload-detail
 		'preload' => array('bootstrap', 'log'),
 		// @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
-		'language' => 'en',
+		'language' => 'pt',
 		// using bootstrap theme ? not needed with extension
 //		'theme' => 'bootstrap',
 		// setup import paths aliases
@@ -38,20 +38,24 @@ return CMap::mergeArray(
 		),
 		/* uncomment and set if required */
 		// @see http://www.yiiframework.com/doc/api/1.1/CModule#setModules-detail
-		/* 'modules' => array(
-			'gii' => array(
+		 'modules' => array(
+			/*'gii' => array(
 				'class' => 'system.gii.GiiModule',
 				'password' => 'clevertech',
 				'generatorPaths' => array(
 					'bootstrap.gii'
 				)
-			)
-		), */
+			)*/
+          'avatar' => array(
+            //'baseUrl' => Yii::getPathOfAlias('root').'/images',
+          ),
+		), 
 		'components' => array(
         
 			'user' => array(
 				'allowAutoLogin'=>true,
 			),
+                      
 			/* load bootstrap components */
 			'bootstrap' => array(
 				'class' => 'common.extensions.bootstrap.components.Bootstrap',

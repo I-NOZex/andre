@@ -234,7 +234,7 @@ class YumAuthController extends YumController {
 
 				// call a function if defined in module configuration
 				if(Yum::module()->afterLogin !== false) 
-					call_user_func(Yum::module()->afterLogin);
+					call_user_func(array($this,Yum::module()->afterLogin));
 
 				Yii::app()->user->setState('yum-login-attempts', 0);
 				$this->redirectUser($success);

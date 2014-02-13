@@ -61,11 +61,11 @@ class YumAdminMenu extends TbMenu {
 				array('label' => Yum::t('Messages'),
                       'itemOptions'=>array('class'=>'nav-header'),
 						'visible' => Yum::hasModule('message')),
-							array('label' => Yum::t('Admin inbox').' <span class="badge badge-info well" style="vertical-align:text-top">'.
-                            YumMessage::model()->unread()->count().'</span>',
+							array('visible' =>Yum::hasModule('message'),'label' => Yum::t('Admin inbox').' <span class="badge badge-info well" style="vertical-align:text-top">'.
+                            /*YumMessage::model()->unread()->count().*/'</span>',
                             'url' => array('/message/message/index')),
-							array('label' => Yum::t('Sent messages'), 'url' => array('/message/message/sent')),
-							array('label' => Yum::t('Write a message'), 'url' => array('/message/message/compose')),
+							array('visible' =>Yum::hasModule('message'),'label' => Yum::t('Sent messages'), 'url' => array('/message/message/sent')),
+							array('visible' =>Yum::hasModule('message'),'label' => Yum::t('Write a message'), 'url' => array('/message/message/compose')),
 
 				array('label' => Yum::t('Misc'),
                       'itemOptions'=>array('class'=>'nav-header')),

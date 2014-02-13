@@ -4,7 +4,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Nova Encomenda','url'=>array('create'),'icon'=>'plus'),
 	array('label'=>'Gerir Encomendas','url'=>array('admin'),'icon'=>'cog'),
 );
 ?>

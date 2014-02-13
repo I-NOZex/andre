@@ -1,5 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
-    <div class="columns">
+    <div class="columns" style="margin-bottom: 10px;">
     <?php if(!empty($this->breadcrumbs)):?>
        <div class="box-body post-body round_corner">
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -35,7 +35,7 @@
                 <?php endforeach; ?>
                 </ul>
            <?php else: ?>
-                <img src="http://placehold.it/500x500&text=Logo"/>
+                <img src="<?php echo Yii::app()->baseUrl?>/images/logo.png"/>
            <?php endif; ?>
 
               <div class="hide-for-small panel">

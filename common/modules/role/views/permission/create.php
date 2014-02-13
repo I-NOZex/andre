@@ -55,6 +55,7 @@
         				'model' => $model,
         				'relation' => 'principal_role',
         				'fields' => 'title',
+                        'htmlOptions' => array('disabled' => 'disabled')
         				));?>
         	<?php echo $form->error($model,'principal_id'); ?></div>
         </div>
@@ -66,6 +67,7 @@
         					'allowEmpty' => true,
         					'relation' => 'subordinate_role',
         					'fields' => 'title',
+                            'htmlOptions' => array('disabled' => 'disabled')
         					));?>
         		<?php echo $form->error($model,'subordinate_id'); ?></div>
         </div>

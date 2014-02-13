@@ -12,13 +12,9 @@
                         $this->menu,
                         array(
                             array('label'=>'Gerir','itemOptions'=>array('class'=>'nav-header')),
-                            array('label'=>'Filmes','url'=>array('/filme'),'icon'=>'facetime-video'),
-                            array('label'=>'Séries','url'=>array('/serie'),'icon'=>'film'),
-                            array('label'=>'Categorias','url'=>array('/categoria'),'icon'=>'tags'),
-                            array('label'=>'Páginas','url'=>'#','icon'=>'file','visible'=>Yii::app()->user->isAdmin()),
-                            array('label'=>'Comentários','url'=>'#','icon'=>'comment','visible'=>Yii::app()->user->isAdmin()),
-                            array('label'=>'Denúncias','url'=>'#','icon'=>'exclamation-sign','visible'=>Yii::app()->user->isAdmin()),
-                            array('label'=>'Utilizadores','url'=>array('//user/user/'),'icon'=>'user','visible'=>Yii::app()->user->isAdmin()),
+                            array('label'=>'Tshirts','url'=>array('/tshirt'),'icon'=>'facetime-video'),
+                            array('label'=>'Encomendas','url'=>array('/encomenda'),'icon'=>'film'),
+                            array('label'=>'Utilizadores','url'=>array('//user/user/'),'icon'=>'user'),
                             array('label'=>Yum::t('My profile'),'url'=>array('//profile/profile/view'),'icon'=>'user','visible'=>!Yii::app()->user->isAdmin()),
                             array('label'=>'Site','url'=>array('/site/index'),'icon'=>'home'),
                         )

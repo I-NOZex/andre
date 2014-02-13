@@ -19,14 +19,31 @@ class SiteController extends Controller {
         "Funny<em>shirt</em> é o seu site online de compra de T-Shirts personalizadas.<br />Boas Compras!"
     );
 
+	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+		);
+	}
+
 	public function accessRules() {
 		return array(
 			// not logged in users should be able to login and view captcha images as well as errors
-			array('allow', 'actions' => array('index', 'captcha', 'login', 'error', 'view','carrinho','removerArtigo','AtualizarArtigo')),
+			array('allow',
+                  'actions' => array('index', 'captcha', 'login', 'logout',
+                        'error', 'view','carrinho','removerartigo',
+                        'atualizarartigo','search'),
+                  'users' => array('*')
+            ),
 			// logged in users can do whatever they want to
-			array('allow', 'users' => array('CheckOut')),
-			// not logged in users can't do anything except above
-			array('deny'),
+			array('allow',
+            'actions' => array('checkout'),
+            'users' => array('admin')
+            ),
+			array('deny','users'=>array('*')),
 		);
 	}
 
@@ -71,6 +88,7 @@ class SiteController extends Controller {
             if(!$errors){
                 Yii::app()->shoppingCart->put($model,$_POST['CartValidator']['quantidade']);
                 Yii::app()->session["tamanho[".$id."]"] = $_POST['CartValidator']['tamanho'];
+                Yii::app()->user->setFlash('success', "O artigo \"$model->Nome\" foi adicionado ao carrinho!");
             }
         }
 		$this->render('view',array(
@@ -90,6 +108,30 @@ class SiteController extends Controller {
 				$this->render('error', $error);
 		}
 	}
+
+    public function actionSearch($q){
+        $criteria = new CDbCriteria();
+        switch ($q) {
+          case "data":
+            $criteria->order = "DataEntrada ASC";
+            break;
+          case "barato":
+            $criteria->order = "Preco ASC";
+            break;
+          case "caro":
+            $criteria->order = "Preco DESC";
+            break;
+          default: $criteria->order = "DataEntrada DESC";
+        }
+
+        $dataProvider = new CActiveDataProvider('Tshirt',
+                        array(
+                                'criteria'  => $criteria,
+                        )
+                    );
+
+		$this->render('index',array('dataProvider'=>$dataProvider));
+    }
 
 	public function actionCarrinho()
     {
@@ -131,7 +173,7 @@ class SiteController extends Controller {
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCheckOut()
+	public function actionCheckout()
 	{
 		$model=new Encomenda;
 
@@ -141,8 +183,11 @@ class SiteController extends Controller {
 		if(isset($_POST['Encomenda']))
 		{
 			$model->attributes=$_POST['Encomenda'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDEncomenda));
+			if($model->save()){
+			    Yii::app()->user->setFlash('success', "A sua encomenda foi registada com sucesso!");
+				$this->redirect(array('/site'));
+            }
+            Yii::app()->user->setFlash('alert', "Ocorreu um erro ao registar a encomenda! Por favor, tente novamente.");
 		}
 
 		$this->render('checkout',array(
@@ -186,34 +231,19 @@ class SiteController extends Controller {
 	}
 
 	/**
-	 * Displays the login page
+	 * Action to render login form or handle user's login
+	 * and redirection
 	 */
-	public function actionLogin() {
-		$model = new LoginForm;
-
-		// if it is ajax validation request
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if (isset($_POST['LoginForm'])) {
-			$model->attributes = $_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if ($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
-		}
-		// display the login form
-		$this->render('login', array('model' => $model));
+	public function actionLogin()
+	{
+	    $this->redirect(array('//user/auth'));
 	}
 
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout() {
-		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+		$this->redirect(array('//user/auth/logout'));
 	}
 
 

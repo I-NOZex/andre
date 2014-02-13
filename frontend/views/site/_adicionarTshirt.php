@@ -75,7 +75,8 @@ $form=$this->beginWidget('CActiveForm',
         <small class="error">É obrigatório especificar a Quantidade (deve ser um número válido)</small>
     </div>
 
-
+<div class="large-12 column">
 <?php echo CHtml::submitButton('Adicionar ao Carrinho',array('class'=>'button small')); ?>
+</div>
 </div>
 <?php $this->endWidget(); ?>

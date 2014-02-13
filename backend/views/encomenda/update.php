@@ -7,7 +7,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Listar Encomendas','url'=>array('index'),'icon'=>'list'),
-	array('label'=>'Nova Encomenda','url'=>array('create'),'icon'=>'plus'),
 	array('label'=>'Ver Encomendas','url'=>array('view','id'=>$model->IDEncomenda),'icon'=>'eye-open'),
 	array('label'=>'Gerir Encomendas','url'=>array('admin'),'icon'=>'cog'),
 );

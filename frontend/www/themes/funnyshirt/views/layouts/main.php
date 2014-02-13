@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation | Welcome</title>
+    <title><?php echo CHtml::encode(strip_tags(Yii::app()->name.' | '.$this->pageTitle)) ?></title>
     <style type="text/css">
     /*<![CDATA[*/
     .row.top {
@@ -36,6 +36,24 @@
     }
     .clearing-featured-img div {
         text-align: right;
+    }
+    span.required {
+    color: #DF0D0E;
+    font-size: 15px;
+    }
+    .avatar {
+        display: inline;
+    }
+    nav .avatar img, nav img.avatar {
+        border-radius: 10px;
+        margin-bottom: 2px;
+        margin-right: 10px;
+        max-height: 30px;
+        max-width: 30px;
+        float: none;
+    }
+    .button-group button.button, .button-group input.button {
+        padding-bottom: 14px;
     }
     /*]]>*/
     </style>
@@ -70,34 +88,37 @@
                   <a href="#">Produtos</a>
                   <ul class="dropdown">
                     <li><label>T-shirts</label></li>
-                    <li><a href="#">Modelo A</a></li>
-                    <li><a href="#">Modelo B</a></li>
-                    <li><a href="#">Modelo C</a></li>
-                    <li><a href="#">Modelo D</a></li>
+                    <li><?php echo CHtml::link('Mais Antigas',array('/site/search','q' => 'data'))?></li>
+                    <li><?php echo CHtml::link('Preço Menor',array('/site/search','q' => 'barato'))?></li>
+                    <li><?php echo CHtml::link('Preço Maior',array('/site/search','q' => 'caro'))?></li>
+<!--                <li><a href="#">Modelo D</a></li>
                     <li class="divider"></li>
                     <li><label>Camisolas</label></li>
                     <li><a href="#">Modelo A</a></li>
                     <li><a href="#">Modelo B</a></li>
                     <li><a href="#">Modelo C</a></li>
-                    <li><a href="#">Modelo D</a></li>
+                    <li><a href="#">Modelo D</a></li>-->
                     <li class="divider"></li>
-                    <li><a href="#">Todos Produtos →</a></li>
+                    <li><?php echo CHtml::link('Todos Produtos &rarr;',array('/site'))?></li>
                   </ul>
                 </li>
                 <li class="divider"></li>
-                <li><a href="#">Main Item 2</a></li>
+                <li><?php echo CHtml::link('Carrinho <span class="round label">'.Yii::app()->shoppingCart->getItemsCount().'</span>',array('/site/carrinho'))?></li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
-                  <a href="#">Área de Cliente</a>
+                  <a href="#">
+                  <?php echo Yii::app()->user->data()->getAvatar(true); ?>
+                  <span>Área de Cliente</span>
+                  </a>
                   <ul class="dropdown">
                   <?php if (Yii::app()->user->isGuest): ?>
-                    <li><a href="#">Iniciar Sessão</a></li>
-                    <li><a href="#">Registar</a></li>
-                    <li><a href="#">Recuperar Password</a></li>
+                    <li><?php echo CHtml::link('Iniciar Sessão',array('//user/user'))?></li>
+                    <li><?php echo CHtml::link('Registar',array('//registration/registration'))?></li>
+                    <li><?php echo CHtml::link('Recuperar Password',array('//registration/registration/recovery'))?></li>
                   <?php else: ?>
-                    <li><a href="#">Conta</a></li>
-                    <li><a href="#">Privacidade</a></li>
-                    <li><a href="#">Terminar Sessão</a></li>
+                    <li><?php echo CHtml::link('Conta',array('//profile/profile/view'))?></li>
+                    <li><?php echo CHtml::link('Privacidade',array('//profile/privacy/update'))?></li>
+                    <li><?php echo CHtml::link('Terminar Sessão',array('/site/logout'))?></li>
                   <?php endif; ?>
                   </ul>
                 </li>
@@ -121,16 +142,16 @@
           <div class="row">
 
             <div class="large-6 columns">
-              <p>© Copyright no one at all. Go to town.</p>
+              <p>Andre & ABCDE - <em>Todos os Direitos Reservados © <?php echo date('Y',time()) ?></em></p>
             </div>
 
             <div class="large-6 columns">
-              <ul class="inline-list right">
+              <!--<ul class="inline-list right">
                 <li><a href="#">Link 1</a></li>
                 <li><a href="#">Link 2</a></li>
                 <li><a href="#">Link 3</a></li>
                 <li><a href="#">Link 4</a></li>
-              </ul>
+              </ul>-->
             </div>
 
           </div>

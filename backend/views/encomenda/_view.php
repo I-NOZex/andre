@@ -6,7 +6,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDCliente')); ?>:</b>
-	<?php echo CHtml::encode($data->IDCliente); ?>
+	<?php echo CHtml::encode($data->iDCliente->firstname.' '.$data->iDCliente->lastname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Data')); ?>:</b>
@@ -17,20 +17,12 @@
 	<?php echo CHtml::encode($data->Total); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('NumVisa')); ?>:</b>
-	<?php echo CHtml::encode($data->NumVisa); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Endereco')); ?>:</b>
-	<?php echo CHtml::encode($data->Endereco); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Entregue')); ?>:</b>
-	<?php echo CHtml::encode($data->Entregue); ?>
+	<?php echo ($data->Entregue==0) ? "Pendente" : "Entregue"; ?>
 	<br />
 
 	</div> 
-    <div class="pull-right" style="width: 42px;"> 
+    <div class="pull-right" style="width: 42px;">
     <?php 
         $this->widget('bootstrap.widgets.TbButtonGroup',
         array(

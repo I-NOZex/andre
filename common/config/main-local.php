@@ -67,7 +67,7 @@ return array(
             'avatarThumbnailWidth' => 40,
             //'avatarPath' => 'uploads/avatars',
             'avatarMaxWidth' => 200,
-            //'baseUrl' => 'http://livetuga.net'
+            'baseUrl' => '/../..'
           ),
           'profile' => array(
             'class' => 'common.modules.profile.ProfileModule',
@@ -89,10 +89,10 @@ return array(
             'actionTable' => 'action',
             'permissionTable' => 'permission',
           ),
-          'message' => array(
+          /*'message' => array(
             'class' => 'common.modules.message.MessageModule',
             'messageTable' => 'message',
-          ),
+          ),*/
 
 	),
 	'params' => array(

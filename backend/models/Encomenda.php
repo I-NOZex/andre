@@ -54,7 +54,7 @@ class Encomenda extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'iDCliente' => array(self::BELONGS_TO, 'Profile', 'IDCliente'),
+			'iDCliente' => array(self::BELONGS_TO, 'YumProfile', 'IDCliente'),
 			'linhaencomendas' => array(self::HAS_MANY, 'Linhaencomenda', 'IDEncomenda'),
 		);
 	}

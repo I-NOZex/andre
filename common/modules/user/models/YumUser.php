@@ -817,8 +817,10 @@ class YumUser extends YumActiveRecord
 						$options);
 
 			if (isset($this->avatar) && $this->avatar)
-				$return .= CHtml::image(Yii::app()->baseUrl . '/'
-						. $this->avatar, 'Avatar', $options);
+				/*$return .= CHtml::image(Yii::app()->baseUrl . '/'
+						. $this->avatar, 'Avatar', $options);*/
+                $return .= CHtml::image( Yii::app()->baseUrl .
+                Yum::module('avatar')->baseUrl . '/' . $this->avatar, 'Avatar', $options);                        
 			else
 				$return .= CHtml::image(Yii::app()->getAssetManager()->publish(
 							Yii::getPathOfAlias('YumAssets.images') . ($thumb

@@ -17,8 +17,6 @@
 
 	<?php echo $form->textFieldRow($model,'Data',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'Total',array('class'=>'span5','maxlength'=>19)); ?>
-
 	<?php echo $form->textFieldRow($model,'NumVisa',array('class'=>'span5','maxlength'=>16)); ?>
 
 	<?php echo $form->textFieldRow($model,'Endereco',array('class'=>'span5','maxlength'=>256)); ?>

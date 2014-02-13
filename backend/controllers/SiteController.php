@@ -24,10 +24,11 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // Allow registration form for anyone
-				'actions' => array('index', 'login', 'logout', 'contact', 'captcha', 'error', 'test'),
+				'actions' => array('login', 'logout', 'captcha', 'error'),
 			),
 			array('allow', // Allow all actions for logged in users ("@")
 				'users' => array('@'),
+                'actions' => array('index'),
 			),
 			array('deny'), // Deny anything else
 		);
@@ -56,7 +57,11 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->render('index');
+	    if(Yii::app()->user->isAdmin()){
+            $this->render('index_admin');
+	    }else if (Yii::app()->user->hasRole('funcionario')){
+            $this->render('index_funcionario');
+        }
 	}
 
 	/**

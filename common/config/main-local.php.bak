@@ -43,13 +43,7 @@ return array(
 	        'adminLayout' => 'common.modules.user.views.layouts.yum',
             'enableBootstrap' => false,
             //'afterLogin' => 'canBackendLogin',
-            //'captchaAfterUnsuccessfulLogins' => 0
-            'preload'=>array('bootstrap'),
-            'components'=>array(
-                'bootstrap'=>array(
-                    'class'=>'ext.bootstrap.components.Bootstrap'
-                )
-            ),
+            //'captchaAfterUnsuccessfulLogins' => 0 
           ),
           /*'usergroup' => array(
             'class' => 'common.modules.usergroup.UsergroupModule',
@@ -73,7 +67,7 @@ return array(
             'avatarThumbnailWidth' => 40,
             //'avatarPath' => 'uploads/avatars',
             'avatarMaxWidth' => 200,
-            //'baseUrl' => 'http://livetuga.net'
+            'baseUrl' => '/../..'
           ),
           'profile' => array(
             'class' => 'common.modules.profile.ProfileModule',

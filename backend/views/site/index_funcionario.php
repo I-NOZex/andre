@@ -29,13 +29,6 @@
             'icon'=>'icon-white icon-list',
             'url'=>array('/tshirt/')
             ));
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Categorias',
-            'size'=>'small',
-            'type'=>'inverse',
-            'icon'=>'icon-white icon-tags',
-            'url'=>array('/categoria')
-            ));
         echo '</div>';
         $this->endWidget(); ?>
         </div>
@@ -48,25 +41,11 @@
                 ));
         echo '<div class="btn-toolbar no_margin">';
             $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Inserir nova',
-            'size'=>'small',
-            'type'=>'success',
-            'icon'=>'icon-white icon-plus',
-            'url'=>array('/serie/create')
-            ));
-            $this->widget('bootstrap.widgets.TbButton',array(
             'label' => 'Ver Todas',
             'size'=>'small',
             'type'=>'inverse',
             'icon'=>'icon-white icon-list',
-            'url'=>array('/serie')
-            ));
-            $this->widget('bootstrap.widgets.TbButton',array(
-            'label' => 'Categorias',
-            'size'=>'small',
-            'type'=>'inverse',
-            'icon'=>'icon-white icon-tags',
-            'url'=>array('/categoria')
+            'url'=>array('/encomenda')
             ));
         echo '</div>';
         $this->endWidget();

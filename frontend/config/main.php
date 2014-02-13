@@ -22,7 +22,7 @@ return CMap::mergeArray(
 		// @see http://www.yiiframework.com/doc/api/1.1/CModule#preload-detail
 		'preload' => array('log'),
 		// @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
-		'language' => 'en',
+		'language' => 'pt',
 		// uncomment if a theme is used
 		'theme' => 'funnyshirt',
 		// setup import paths aliases
@@ -65,6 +65,21 @@ return CMap::mergeArray(
     	        'loginLayout' => 'www.themes.funnyshirt.views.user.layouts.login',
     	        'adminLayout' => 'www.themes.funnyshirt.views.user.layouts.yum',
               ),
+              'profile' => array(
+                'publicFieldsView' =>'www.themes.funnyshirt.views.profile.profile.public_fields',
+                'layout' => 'www.themes.funnyshirt.views.user.layouts.yum',
+                //'profileFormView' =>'www.themes.funnyshirt.views.profile.profile.profile._form',
+                //'profileCommentView' =>'www.themes.funnyshirt.views.profile.profile.profileComment._view',
+    	        //'profileCommentIndexView' =>'www.themes.funnyshirt.views.profile.profile.profileComment.index',
+                //'profileCommentCreateView' =>'www.themes.funnyshirt.views.profile.profile.profileComment.create',
+              ),
+              'avatar' => array(
+                'layout' => 'www.themes.funnyshirt.views.user.layouts.yum',
+                'adminLayout' => 'www.themes.funnyshirt.views.user.layouts.yum',
+              ),
+              'registration' => array(
+                'recoverPasswordView' => 'www.themes.funnyshirt.views.registration.registration.recovery'
+              )
         ),
 	),
 	(file_exists(__DIR__ . '/main-env.php') ? require(__DIR__ . '/main-env.php') : array()),

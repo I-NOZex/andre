@@ -9,7 +9,7 @@ return array(
     'modules' => array(
     			'gii' => array(
     				'class' => 'system.gii.GiiModule',
-    				'password' => 'clevertech',
+    				'password' => 'admin',
     				'generatorPaths' => array(
     					'bootstrap.gii'
     				)

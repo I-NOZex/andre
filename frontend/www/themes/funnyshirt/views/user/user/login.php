@@ -29,7 +29,7 @@ $this->title = Yum::t('Login');
 $this->breadcrumbs=array(Yum::t('Login'));
 if(isset(Yii::app()->request->cookies['flash'])){
     $data = unserialize(Yii::app()->request->cookies['flash']->value);
-    Yii::app()->user->setFlash($data[0], Yum::t($data[1]).CHtml::link(' Go Home →',Yii::app()->baseUrl.'/../../',array('class'=>'pull-right')));
+    Yii::app()->user->setFlash($data[0], Yum::t($data[1]).CHtml::link(' Go Home →','http://livetuga.net',array('class'=>'pull-right')));
     $this->widget('bootstrap.widgets.TbAlert');
     unset(Yii::app()->request->cookies['flash']);
 }
@@ -113,30 +113,17 @@ foreach(Yum::module()->hybridAuthProviders as $provider)
 <div class="form-actions">
 
 <span class="hint">
-	<?php
-$buttons = array();
-$buttons[] = array('label'=>Yum::t('Login'),
-	                  'buttonType'=>'submit',
-	                  'size'=>'small',
-	                  'type'=>'primary');
-//CHtml::submitButton(Yum::t('Login'), array('class' => 'btn btn-primary'));
-	if(Yum::hasModule('registration') && Yum::module('registration')->enableRegistration)
-	$buttons[] = array('label'=>Yum::t("Registration"),
-	                  'url'=>Yum::module('registration')->registrationUrl,
-                      'htmlOptions'=>array('class'=>'btn-success'));
-
-	if(Yum::hasModule('registration') && Yum::module('registration')->enableRecovery)
-	$buttons[] = array('label'=>Yum::t("Lost password?"),
-	                  'url'=>Yum::module('registration')->recoveryUrl,
-                      'htmlOptions'=>array('class'=>'btn-danger'));
-
-if(!empty($buttons)){
-$this->widget('bootstrap.widgets.TbButtonGroup', array(
-    'buttons'=>$buttons,
-    'htmlOptions'=>array('style'=>'display: inline;')
-));
-}
-	?>
+<div class="button-bar">
+	<ul class="button-group round">
+        <li><?php echo CHtml::submitButton(Yum::t('Login'), array('class' => 'button','style'=>'padding-bottom: 14px;')); ?></li>
+	    <li><?php if(Yum::hasModule('registration') && Yum::module('registration')->enableRegistration)
+            echo CHtml::link(Yum::t("Registration"),Yum::module('registration')->registrationUrl, array('class' => 'button success'));?>
+        </li>
+	    <li><?php if(Yum::hasModule('registration') && Yum::module('registration')->enableRecovery)
+	        echo CHtml::link(Yum::t("Lost password?"),Yum::module('registration')->recoveryUrl, array('class' => 'button alert'));?>
+        </li>
+	</ul>
+</div>
 </span>
 
 </div>
